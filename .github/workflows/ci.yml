@@ -15,3 +15,5 @@ jobs:
       - uses: actions/checkout@v2
       - name: Test
         run: make test
+        env:
+          MAX_COUNT_SCALE: 2
