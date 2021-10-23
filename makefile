@@ -31,7 +31,7 @@ pre-reqs += go.tools.log
 # ---
 
 test: | $(pre-reqs)
-	@gotestsum -- -cover ./...
+	@gotestsum -- -race -cover -test.shuffle=on ./...
 .PHONY: test
 
 test.watch: | $(pre-reqs)
