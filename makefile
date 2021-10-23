@@ -4,7 +4,7 @@ export GOBIN = $(PWD)/$(go_bin)
 PATH := $(PWD)/$(go_bin):$(PATH)
 SHELL := /usr/bin/env bash -eu -o pipefail
 CPUS ?= $(shell (nproc --all || sysctl -n hw.ncpu) 2>/dev/null || echo 1)
-MAKEFLAGS += --output-sync=line --jobs $(CPUS)
+MAKEFLAGS += --warn-undefined-variables --output-sync=line --jobs $(CPUS)
 .DEFAULT_GOAL := help
 .SECONDEXPANSION:
 .DELETE_ON_ERROR:
