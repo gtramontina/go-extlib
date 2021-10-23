@@ -80,6 +80,19 @@ func NotEquals[Type equaler[Type]](t *testing.T, left Type, right Type) {
 	})
 }
 
+// NotEq checks whether the actual value is not equal to the expected value by
+// comparing them using ==. It fails when actual is equal to expected.
+func NotEq[Type comparable](t *testing.T, actual Type, expected Type) {
+	t.Helper()
+	refute(t, actual == expected, func() string {
+		return strings.Join([]string{
+			red("Assertion failed: expected values to be different (!=)."), "",
+			bold(blue("Left:")), fmt.Sprintf("%+v", actual), "",
+			bold(blue("Right:")), fmt.Sprintf("%+v", expected), "",
+		}, "\n")
+	})
+}
+
 // NoError checks whether err is nil. It fails when it is not nil.
 func NoError(t *testing.T, err error) {
 	t.Helper()
