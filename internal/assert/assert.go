@@ -31,9 +31,9 @@ func Equals[Type equaler[Type]](t *testing.T, actual Type, expected Type) {
 	t.Helper()
 	assert(t, actual.Equals(expected), func() string {
 		return strings.Join([]string{
-			"Assertion failed: expected values to be equal.", "",
-			"Actual: ", fmt.Sprintf("%+v", actual), "",
-			"Expected:", fmt.Sprintf("%+v", expected), "",
+			red("Assertion failed: expected values to be equal."), "",
+			bold(blue("Actual:")), fmt.Sprintf("%+v", actual), "",
+			bold(blue("Expected:")), fmt.Sprintf("%+v", expected), "",
 		}, "\n")
 	})
 }
@@ -44,9 +44,9 @@ func Eq[Type comparable](t *testing.T, actual Type, expected Type) {
 	t.Helper()
 	assert(t, actual == expected, func() string {
 		return strings.Join([]string{
-			"Assertion failed: expected values to be eq (==).", "",
-			"Actual: ", fmt.Sprintf("%+v", actual), "",
-			"Expected:", fmt.Sprintf("%+v", expected), "",
+			red("Assertion failed: expected values to be eq (==)."), "",
+			bold(blue("Actual:")), fmt.Sprintf("%+v", actual), "",
+			bold(blue("Expected:")), fmt.Sprintf("%+v", expected), "",
 		}, "\n")
 	})
 }
@@ -58,9 +58,9 @@ func DeepEqual[Type any](t *testing.T, actual Type, expected Type) {
 	t.Helper()
 	assert(t, reflect.DeepEqual(actual, expected), func() string {
 		return strings.Join([]string{
-			"Assertion failed: expected values to be deep equal.", "",
-			"Actual: ", fmt.Sprintf("%+v", actual), "",
-			"Expected:", fmt.Sprintf("%+v", expected), "",
+			red("Assertion failed: expected values to be deep equal."), "",
+			bold(blue("Actual:")), fmt.Sprintf("[%s] %+v", reflect.TypeOf(actual), actual), "",
+			bold(blue("Expected:")), fmt.Sprintf("[%s] %+v", reflect.TypeOf(actual), expected), "",
 		}, "\n")
 	})
 }
@@ -73,9 +73,9 @@ func NotEquals[Type equaler[Type]](t *testing.T, left Type, right Type) {
 	t.Helper()
 	refute(t, left.Equals(right), func() string {
 		return strings.Join([]string{
-			"Assertion failed: expected values to be different.", "",
-			"Left: ", fmt.Sprintf("%+v", left), "",
-			"Right:", fmt.Sprintf("%+v", right), "",
+			red("Assertion failed: expected values to be different."), "",
+			bold(blue("Left:")), fmt.Sprintf("%+v", left), "",
+			bold(blue("Right:")), fmt.Sprintf("%+v", right), "",
 		}, "\n")
 	})
 }
@@ -85,8 +85,8 @@ func NoError(t *testing.T, err error) {
 	t.Helper()
 	assert(t, err == nil, func() string {
 		return strings.Join([]string{
-			"Assertion failed: expected no error.", "",
-			"Error: ", err.Error(), "",
+			red("Assertion failed: expected no error."), "",
+			bold(blue("Error: ")), err.Error(), "",
 		}, "\n")
 	})
 }
@@ -110,3 +110,10 @@ func refute(t *testing.T, truth bool, lazyMessage func() string) {
 	t.Helper()
 	assert(t, !truth, lazyMessage)
 }
+
+// ---
+
+func red(text string) string   { return reset("\033[31m" + text) }
+func blue(text string) string  { return reset("\033[34m" + text) }
+func bold(text string) string  { return reset("\033[1m" + text) }
+func reset(text string) string { return text + "\033[0m" }
