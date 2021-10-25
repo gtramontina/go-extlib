@@ -30,6 +30,9 @@ pre-reqs += go.tools.log
 
 # ---
 
+install: $(pre-reqs)
+.PHONY: install
+
 test: | $(pre-reqs)
 	@gotestsum -- -race -cover -test.shuffle=on ./...
 .PHONY: test
