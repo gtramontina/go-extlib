@@ -21,11 +21,11 @@ $(go_bin)/go:
 	@cd .go/src; ./make.bash
 pre-reqs += $(go_bin)/go
 
-go.tools.log: go.tools.txt go.tools.mod | $(go_bin)/go
+go.tools.log: go.tools.go go.tools.mod | $(go_bin)/go
 	@date | sed -e :a -e 's/^.\{1,79\}$$/-&/;ta' >> $@
 	@go mod tidy -modfile=go.tools.mod 2>&1 | tee -a $@
-	@go get -modfile=go.tools.mod $$(cat go.tools.txt) 2>&1 | tee -a $@
-	@go install -modfile=go.tools.mod $$(cat go.tools.txt) 2>&1 | tee -a $@
+	@go get -modfile=go.tools.mod $$(go list -tags=tools -f '{{ join .Imports "\n" }}' .) 2>&1 | tee -a $@
+	@go install -modfile=go.tools.mod $$(go list -tags=tools -f '{{ join .Imports "\n" }}' .) 2>&1 | tee -a $@
 pre-reqs += go.tools.log
 
 # ---

@@ -2,6 +2,8 @@ module github.com/gtramontina/go-collections
 
 go 1.18
 
+require gotest.tools/gotestsum v1.7.0
+
 require (
 	github.com/dnephin/pflag v1.0.7 // indirect
 	github.com/fatih/color v1.10.0 // indirect
@@ -17,5 +19,4 @@ require (
 	golang.org/x/term v0.0.0-20201126162022-7de9c90e9dd1 // indirect
 	golang.org/x/tools v0.1.0 // indirect
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
-	gotest.tools/gotestsum v1.7.0 // indirect
 )
