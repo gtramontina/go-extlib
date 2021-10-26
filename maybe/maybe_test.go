@@ -21,14 +21,14 @@ func TestMaybe(t *testing.T) {
 		assert.Equals(t, maybe.Of[int](nil), maybe.None[int]())
 	})
 
-	t.Run(`as string`, func(t *testing.T) {
-		assert.Eq(t, maybe.Of[int](nil).String(), `None()`)
-		assert.Eq(t, maybe.Of[int](0).String(), `Some[int](0)`)
-		assert.Eq(t, maybe.Of[string]("0").String(), `Some[string](0)`)
-		assert.Eq(t, maybe.Of[sample](sample{0}).String(), `Some[maybe_test.sample]({value:0})`)
+	t.Run("as string", func(t *testing.T) {
+		assert.Eq(t, maybe.Of[int](nil).String(), "None()")
+		assert.Eq(t, maybe.Of[int](0).String(), "Some[int](0)")
+		assert.Eq(t, maybe.Of[string]("0").String(), "Some[string](0)")
+		assert.Eq(t, maybe.Of[sample](sample{0}).String(), "Some[maybe_test.sample]({value:0})")
 	})
 
-	t.Run(`is comparable`, func(t *testing.T) {
+	t.Run("is comparable", func(t *testing.T) {
 		assert.True(t, maybe.Some(10).Equals(maybe.Some(10)))
 		assert.False(t, maybe.Some(10).Equals(maybe.Some(20)))
 		assert.True(t, maybe.Some("10").Equals(maybe.Some("10")))
