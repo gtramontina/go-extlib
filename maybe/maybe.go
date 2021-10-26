@@ -60,11 +60,11 @@ func (s some[Type]) String() string {
 
 type none[Type comparable] struct{}
 
-func (n none[Type]) Equals(other Maybe[Type]) bool {
+func (none[Type]) Equals(other Maybe[Type]) bool {
 	_, ok := other.(none[Type])
 	return ok
 }
 
-func (s none[Type]) String() string {
+func (none[Type]) String() string {
 	return "None()"
 }
