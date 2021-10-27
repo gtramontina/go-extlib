@@ -3,6 +3,7 @@ package hashmap_test
 import (
 	"github.com/gtramontina/go-collections/hashmap"
 	"github.com/gtramontina/go-collections/internal/assert"
+	"github.com/gtramontina/go-collections/maybe"
 	"github.com/gtramontina/go-collections/set"
 	"testing"
 )
@@ -59,6 +60,13 @@ func TestHashMap(t *testing.T) {
 		t.Run("panics when no value is associated with given key", func(t *testing.T) {
 			assert.Panic(t, func() { hashmap.New[string, int]().MustGet("unknown") }, "hashmap: key not found")
 		})
+	})
+
+	t.Run("can retrieve Maybe values based on keys", func(t *testing.T) {
+		assert.Eq(t, hashmap.New[string, int](hashmap.Pair("key1", 1), hashmap.Pair("key2", 2)).MaybeGet("key1"), maybe.Some(1))
+		assert.Eq(t, hashmap.New[string, int](hashmap.Pair("key1", 1), hashmap.Pair("key2", 2)).MaybeGet("key2"), maybe.Some(2))
+		assert.Eq(t, hashmap.New[string, int](hashmap.Pair("key0", 0), hashmap.Pair("key3", 3)).MaybeGet("key3"), maybe.Some(3))
+		assert.Eq(t, hashmap.New[string, int]().MaybeGet("unknown"), maybe.None[int]())
 	})
 
 	t.Run("allows accessing all keys", func(t *testing.T) {

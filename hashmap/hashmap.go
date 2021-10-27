@@ -2,6 +2,7 @@ package hashmap
 
 import (
 	"github.com/gtramontina/go-collections/internal/hash"
+	"github.com/gtramontina/go-collections/maybe"
 	"github.com/gtramontina/go-collections/set"
 	"reflect"
 )
@@ -72,6 +73,17 @@ func (m HashMap[Key, Value]) MustGet(key Key) Value {
 	}
 
 	return entry.value
+}
+
+// MaybeGet retrieves the Value for the given Key. Returns a Maybe[Value] type.
+// Please refer to maybe.Maybe documentation for more information.
+func (m HashMap[Key, Value]) MaybeGet(key Key) maybe.Maybe[Value] {
+	entry, ok := m.entries[hash.Calc(key)]
+	if !ok {
+		return maybe.None[Value]()
+	}
+
+	return maybe.Some(entry.value)
 }
 
 // Keys returns a set.Set of all keys contained in this HashMap.
