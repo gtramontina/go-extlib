@@ -1,10 +1,5 @@
 package maybe
 
-import (
-	"fmt"
-	"reflect"
-)
-
 type Maybe[Type any] interface {
 	seal() string
 	Equals(Maybe[Type]) bool
@@ -14,9 +9,13 @@ type Maybe[Type any] interface {
 	UnwrapOrElse(func() Type) Type
 }
 
-func Some[Type any](value Type) Maybe[Type] { return some[Type]{value} }
+func Some[Type any](value Type) Maybe[Type] {
+	return some[Type]{value}
+}
 
-func None[Type any]() Maybe[Type] { return none[Type]{} }
+func None[Type any]() Maybe[Type] {
+	return none[Type]{}
+}
 
 func Of[Type any](value interface{}) Maybe[Type] {
 	if value != nil {
@@ -44,59 +43,4 @@ func FlatMap[From any, To any](maybe Maybe[From], mapper func(From) Maybe[To]) M
 		return mapper(it.value)
 	}
 	return None[To]()
-}
-
-// ---
-
-type some[Type any] struct{ value Type }
-
-func (some[Type]) seal() string { return "Some" }
-
-func (s some[Type]) Equals(other Maybe[Type]) bool {
-	if otherSome, ok := other.(some[Type]); ok {
-		return reflect.DeepEqual(s.value, otherSome.value)
-	}
-	return false
-}
-
-func (s some[Type]) String() string {
-	kind := reflect.TypeOf(s.value).String()
-	return s.seal() + "[" + kind + "](" + fmt.Sprintf("%+v", s.value) + ")"
-}
-
-func (s some[Type]) Unwrap() Type {
-	return s.value
-}
-
-func (s some[Type]) UnwrapOr(_ Type) Type {
-	return s.value
-}
-
-func (s some[Type]) UnwrapOrElse(_ func() Type) Type {
-	return s.value
-}
-
-type none[Type any] struct{}
-
-func (none[Type]) seal() string { return "None" }
-
-func (none[Type]) Equals(other Maybe[Type]) bool {
-	_, ok := other.(none[Type])
-	return ok
-}
-
-func (n none[Type]) String() string {
-	return n.seal() + "()"
-}
-
-func (none[Type]) Unwrap() Type {
-	panic("nothing to unwrap from None()")
-}
-
-func (none[Type]) UnwrapOr(or Type) Type {
-	return or
-}
-
-func (none[Type]) UnwrapOrElse(orElse func() Type) Type {
-	return orElse()
 }
