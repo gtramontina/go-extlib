@@ -6,6 +6,7 @@ import (
 )
 
 type Maybe[Type any] interface {
+	seal() string
 	Equals(Maybe[Type]) bool
 	String() string
 	Unwrap() Type
@@ -49,6 +50,8 @@ func FlatMap[From any, To any](maybe Maybe[From], mapper func(From) Maybe[To]) M
 
 type some[Type any] struct{ value Type }
 
+func (some[Type]) seal() string { return "Some" }
+
 func (s some[Type]) Equals(other Maybe[Type]) bool {
 	if otherSome, ok := other.(some[Type]); ok {
 		return reflect.DeepEqual(s.value, otherSome.value)
@@ -58,7 +61,7 @@ func (s some[Type]) Equals(other Maybe[Type]) bool {
 
 func (s some[Type]) String() string {
 	kind := reflect.TypeOf(s.value).String()
-	return "Some[" + kind + "](" + fmt.Sprintf("%+v", s.value) + ")"
+	return s.seal() + "[" + kind + "](" + fmt.Sprintf("%+v", s.value) + ")"
 }
 
 func (s some[Type]) Unwrap() Type {
@@ -75,13 +78,15 @@ func (s some[Type]) UnwrapOrElse(_ func() Type) Type {
 
 type none[Type any] struct{}
 
+func (none[Type]) seal() string { return "None" }
+
 func (none[Type]) Equals(other Maybe[Type]) bool {
 	_, ok := other.(none[Type])
 	return ok
 }
 
-func (none[Type]) String() string {
-	return "None()"
+func (n none[Type]) String() string {
+	return n.seal() + "()"
 }
 
 func (none[Type]) Unwrap() Type {
