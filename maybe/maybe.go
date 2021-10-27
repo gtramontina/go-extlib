@@ -10,6 +10,7 @@ type Maybe[Type any] interface {
 	String() string
 	Unwrap() Type
 	UnwrapOr(Type) Type
+	UnwrapOrElse(func() Type) Type
 }
 
 func Some[Type any](value Type) Maybe[Type] { return some[Type]{value} }
@@ -68,6 +69,10 @@ func (s some[Type]) UnwrapOr(_ Type) Type {
 	return s.value
 }
 
+func (s some[Type]) UnwrapOrElse(_ func() Type) Type {
+	return s.value
+}
+
 type none[Type any] struct{}
 
 func (none[Type]) Equals(other Maybe[Type]) bool {
@@ -85,4 +90,8 @@ func (none[Type]) Unwrap() Type {
 
 func (none[Type]) UnwrapOr(or Type) Type {
 	return or
+}
+
+func (none[Type]) UnwrapOrElse(orElse func() Type) Type {
+	return orElse()
 }

@@ -87,4 +87,15 @@ func TestMaybe(t *testing.T) {
 		assert.Eq(t, maybe.None[string]().UnwrapOr("empty"), "empty")
 		assert.Eq(t, maybe.Map(maybe.Some(10), func(it int) interface{} { return nil }).UnwrapOr("empty"), "empty")
 	})
+
+	t.Run(`do not evaluate default value when unwrapping "some" with OrElse`, func(t *testing.T) {
+		assert.Eq(t, maybe.Some(10).UnwrapOrElse(func() int { return 20 }), 10)
+		assert.Eq(t, maybe.Some("10").UnwrapOrElse(func() string { return "empty" }), "10")
+	})
+
+	t.Run(`evaluates default value when unwrapping "none" with OrElse`, func(t *testing.T) {
+		assert.Eq(t, maybe.None[int]().UnwrapOrElse(func() int { return 20 }), 20)
+		assert.Eq(t, maybe.None[string]().UnwrapOrElse(func() string { return "empty" }), "empty")
+		assert.Eq(t, maybe.Map(maybe.Some(10), func(it int) interface{} { return nil }).UnwrapOrElse(func() interface{} { return "empty" }), "empty")
+	})
 }
