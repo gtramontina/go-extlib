@@ -76,4 +76,15 @@ func TestMaybe(t *testing.T) {
 		assert.Panic(t, func() { maybe.None[int]().Unwrap() }, "nothing to unwrap from None()")
 		assert.Panic(t, func() { maybe.Map(maybe.Some(10), func(it int) interface{} { return nil }).Unwrap() }, "nothing to unwrap from None()")
 	})
+
+	t.Run(`do not use default value when unwrapping "some" with Or`, func(t *testing.T) {
+		assert.Eq(t, maybe.Some(10).UnwrapOr(20), 10)
+		assert.Eq(t, maybe.Some("10").UnwrapOr("empty"), "10")
+	})
+
+	t.Run(`uses default value when unwrapping "none" with Or`, func(t *testing.T) {
+		assert.Eq(t, maybe.None[int]().UnwrapOr(20), 20)
+		assert.Eq(t, maybe.None[string]().UnwrapOr("empty"), "empty")
+		assert.Eq(t, maybe.Map(maybe.Some(10), func(it int) interface{} { return nil }).UnwrapOr("empty"), "empty")
+	})
 }
