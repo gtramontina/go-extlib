@@ -63,9 +63,9 @@ func (m HashMap[Key, Value]) Remove(key Key) HashMap[Key, Value] {
 	return HashMap[Key, Value]{entries: newEntries}
 }
 
-// Get retrieves the Value for the given Key.
+// MustGet retrieves the Value for the given Key. Panics when key is not found.
 // TODO: implement Maybe[Value]
-func (m HashMap[Key, Value]) Get(key Key) Value {
+func (m HashMap[Key, Value]) MustGet(key Key) Value {
 	entry, ok := m.entries[hash.Calc(key)]
 	if !ok {
 		panic("hashmap: key not found")

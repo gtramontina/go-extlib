@@ -52,12 +52,12 @@ func TestHashMap(t *testing.T) {
 	})
 
 	t.Run("can retrieve values based on keys", func(t *testing.T) {
-		assert.Eq(t, hashmap.New[string, int](hashmap.Pair("key1", 1), hashmap.Pair("key2", 2)).Get("key1"), 1)
-		assert.Eq(t, hashmap.New[string, int](hashmap.Pair("key1", 1), hashmap.Pair("key2", 2)).Get("key2"), 2)
-		assert.Eq(t, hashmap.New[string, int](hashmap.Pair("key0", 0), hashmap.Pair("key3", 3)).Get("key3"), 3)
+		assert.Eq(t, hashmap.New[string, int](hashmap.Pair("key1", 1), hashmap.Pair("key2", 2)).MustGet("key1"), 1)
+		assert.Eq(t, hashmap.New[string, int](hashmap.Pair("key1", 1), hashmap.Pair("key2", 2)).MustGet("key2"), 2)
+		assert.Eq(t, hashmap.New[string, int](hashmap.Pair("key0", 0), hashmap.Pair("key3", 3)).MustGet("key3"), 3)
 
 		t.Run("panics when no value is associated with given key", func(t *testing.T) {
-			assert.Panic(t, func() { hashmap.New[string, int]().Get("unknown") }, "hashmap: key not found")
+			assert.Panic(t, func() { hashmap.New[string, int]().MustGet("unknown") }, "hashmap: key not found")
 		})
 	})
 
