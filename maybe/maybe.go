@@ -8,6 +8,7 @@ import (
 type Maybe[Type any] interface {
 	Equals(Maybe[Type]) bool
 	String() string
+	Unwrap() Type
 }
 
 func Some[Type any](value Type) Maybe[Type] { return some[Type]{value} }
@@ -58,6 +59,10 @@ func (s some[Type]) String() string {
 	return "Some[" + kind + "](" + fmt.Sprintf("%+v", s.value) + ")"
 }
 
+func (s some[Type]) Unwrap() Type {
+	return s.value
+}
+
 type none[Type any] struct{}
 
 func (none[Type]) Equals(other Maybe[Type]) bool {
@@ -67,4 +72,8 @@ func (none[Type]) Equals(other Maybe[Type]) bool {
 
 func (none[Type]) String() string {
 	return "None()"
+}
+
+func (none[Type]) Unwrap() Type {
+	panic("nothing to unwrap from None()")
 }

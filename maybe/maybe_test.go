@@ -66,4 +66,14 @@ func TestMaybe(t *testing.T) {
 	t.Run(`"none" always flatMaps to "none"`, func(t *testing.T) {
 		assert.Equals(t, maybe.FlatMap(maybe.None[int](), func(it int) maybe.Maybe[string] { return maybe.Some(fmt.Sprintf("value: %d", it)) }), maybe.None[string]())
 	})
+
+	t.Run(`can unwrap a "some"`, func(t *testing.T) {
+		assert.Eq(t, maybe.Some(10).Unwrap(), 10)
+		assert.Eq(t, maybe.Some("10").Unwrap(), "10")
+	})
+
+	t.Run(`panics when unwrapping "none"`, func(t *testing.T) {
+		assert.Panic(t, func() { maybe.None[int]().Unwrap() }, "nothing to unwrap from None()")
+		assert.Panic(t, func() { maybe.Map(maybe.Some(10), func(it int) interface{} { return nil }).Unwrap() }, "nothing to unwrap from None()")
+	})
 }
