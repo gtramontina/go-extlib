@@ -50,6 +50,7 @@ func TestMaybe(t *testing.T) {
 		assert.Equals(t, maybe.Map(maybe.Some(10), func(it int) sample { return sample{it} }), maybe.Some(sample{10}))
 		assert.Equals(t, maybe.Map(maybe.Some("10"), func(it string) int { out, _ := strconv.ParseInt(it, 10, 0); return int(out) }), maybe.Some(10))
 		assert.Equals(t, maybe.Map(maybe.Some(10), func(it int) interface{} { return nil }), maybe.None[interface{}]())
+		assert.Equals(t, maybe.Map(maybe.Some(10), func(it int) maybe.Maybe[int] { return maybe.Some(it * 2) }), maybe.Some(maybe.Some(20)))
 	})
 
 	t.Run(`"none" always maps to "none"`, func(t *testing.T) {
