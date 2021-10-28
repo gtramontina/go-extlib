@@ -57,14 +57,18 @@ func TestMaybe(t *testing.T) {
 	})
 
 	t.Run("flat maps to another type", func(t *testing.T) {
-		assert.Equals(t, maybe.FlatMap(maybe.Some(10), func(it int) maybe.Maybe[string] { return maybe.Some(fmt.Sprintf("value: %d", it)) }), maybe.Some("value: 10"))
-		assert.Equals(t, maybe.FlatMap(maybe.Some(10), func(it int) maybe.Maybe[sample] { return maybe.Some(sample{it}) }), maybe.Some(sample{10}))
-		assert.Equals(t, maybe.FlatMap(maybe.Some("10"), func(it string) maybe.Maybe[int] { out, _ := strconv.ParseInt(it, 10, 0); return maybe.Some(int(out)) }), maybe.Some(10))
-		assert.Equals(t, maybe.FlatMap(maybe.Some(10), func(it int) maybe.Maybe[interface{}] { return maybe.Of[interface{}](nil) }), maybe.None[interface{}]())
+		assert.Equals(t, maybe.FlatMap[int, string](maybe.Some(10), func(it int) interface{} { return maybe.Some(fmt.Sprintf("value: %d", it)) }), maybe.Some("value: 10"))
+		assert.Equals(t, maybe.FlatMap[int, string](maybe.Some(10), func(it int) interface{} { return fmt.Sprintf("value: %d", it) }), maybe.Some("value: 10"))
+		assert.Equals(t, maybe.FlatMap[int, sample](maybe.Some(10), func(it int) interface{} { return maybe.Some(sample{it}) }), maybe.Some(sample{10}))
+		assert.Equals(t, maybe.FlatMap[int, sample](maybe.Some(10), func(it int) interface{} { return sample{it} }), maybe.Some(sample{10}))
+		assert.Equals(t, maybe.FlatMap[string, int](maybe.Some("10"), func(it string) interface{} { out, _ := strconv.ParseInt(it, 10, 0); return maybe.Some(int(out)) }), maybe.Some(10))
+		assert.Equals(t, maybe.FlatMap[string, int](maybe.Some("10"), func(it string) interface{} { out, _ := strconv.ParseInt(it, 10, 0); return int(out) }), maybe.Some(10))
+		assert.Equals(t, maybe.FlatMap[int, interface{}](maybe.Some(10), func(it int) interface{} { return maybe.Of[interface{}](nil) }), maybe.None[interface{}]())
+		assert.Equals(t, maybe.FlatMap[int, interface{}](maybe.Some(10), func(it int) interface{} { return nil }), maybe.None[interface{}]())
 	})
 
 	t.Run(`"none" always flatMaps to "none"`, func(t *testing.T) {
-		assert.Equals(t, maybe.FlatMap(maybe.None[int](), func(it int) maybe.Maybe[string] { return maybe.Some(fmt.Sprintf("value: %d", it)) }), maybe.None[string]())
+		assert.Equals(t, maybe.FlatMap[int, string](maybe.None[int](), func(it int) interface{} { return maybe.Some(fmt.Sprintf("value: %d", it)) }), maybe.None[string]())
 	})
 
 	t.Run(`can unwrap a "some"`, func(t *testing.T) {

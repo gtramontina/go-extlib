@@ -75,9 +75,13 @@ func Map[From any, To any](maybe Maybe[From], mapper func(From) To) Maybe[To] {
 // FlatMap allows converting given `maybe`'s value into a different type via the
 // `mapper` function. The result of `mapper` is then wrapped with Maybe[Type] if
 // not yet a Maybe[Type], or None[Type] if value is absent. See also: Map.
-func FlatMap[From any, To any](maybe Maybe[From], mapper func(From) Maybe[To]) Maybe[To] {
+func FlatMap[From any, To any](maybe Maybe[From], mapper func(From) interface{}) Maybe[To] {
 	if it, ok := maybe.(some[From]); ok {
-		return mapper(it.value)
+		result := mapper(it.value)
+		if maybeResult, ok := result.(Maybe[To]); ok {
+			return maybeResult
+		}
+		return Of[To](result)
 	}
 	return None[To]()
 }
