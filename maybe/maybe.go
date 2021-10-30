@@ -13,6 +13,12 @@ type Maybe[Type any] interface {
 	// String renders itself as a string.
 	String() string
 
+	// IsSome returns true if the Maybe[Type] is Some; false otherwise.
+	IsSome() bool
+
+	// IsNone returns true if the Maybe[Type] is None; false otherwise.
+	IsNone() bool
+
 	// Unwrap returns the wrapped value, if Some, panics if None. See also:
 	// UnwrapOr, UnwrapOrElse.
 	Unwrap() Type

@@ -25,6 +25,14 @@ func (s some[Type]) String() string {
 	return s.seal() + "[" + kind + "](" + fmt.Sprintf("%+v", s.value) + ")"
 }
 
+func (some[Type]) IsSome() bool {
+	return true
+}
+
+func (some[Type]) IsNone() bool {
+	return false
+}
+
 func (s some[Type]) Unwrap() Type {
 	return s.value
 }

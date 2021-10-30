@@ -11,6 +11,32 @@ import (
 func TestMaybe(t *testing.T) {
 	type sample struct{ value int }
 
+	t.Run("when type checking", func(t *testing.T) {
+		t.Run("Some is always Some", func(t *testing.T) {
+			assert.True(t, maybe.Some(1).IsSome())
+			assert.True(t, maybe.Some("value").IsSome())
+			assert.True(t, maybe.Some(sample{1}).IsSome())
+		})
+
+		t.Run("Some is never None", func(t *testing.T) {
+			assert.False(t, maybe.Some(1).IsNone())
+			assert.False(t, maybe.Some("value").IsNone())
+			assert.False(t, maybe.Some(sample{1}).IsNone())
+		})
+
+		t.Run("None is always None", func(t *testing.T) {
+			assert.True(t, maybe.None[int]().IsNone())
+			assert.True(t, maybe.None[string]().IsNone())
+			assert.True(t, maybe.None[sample]().IsNone())
+		})
+
+		t.Run("None is never Some", func(t *testing.T) {
+			assert.False(t, maybe.None[int]().IsSome())
+			assert.False(t, maybe.None[string]().IsSome())
+			assert.False(t, maybe.None[sample]().IsSome())
+		})
+	})
+
 	t.Run("when creating from unknown input", func(t *testing.T) {
 		t.Run("results in Some if non-nullable value is given", func(t *testing.T) {
 			assert.Equals(t, maybe.Of[int](1), maybe.Some(1))

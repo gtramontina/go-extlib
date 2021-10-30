@@ -15,6 +15,14 @@ func (n none[Type]) String() string {
 	return n.seal() + "()"
 }
 
+func (none[Type]) IsSome() bool {
+	return false
+}
+
+func (none[Type]) IsNone() bool {
+	return true
+}
+
 func (none[Type]) Unwrap() Type {
 	panic("nothing to unwrap from None()")
 }
