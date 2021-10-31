@@ -53,6 +53,11 @@ clobber:
 	@rm -rf .go .tools *.log
 .PHONY: clobber
 
+pre-commit: | $(pre-reqs)
+	@gofmt -w $$({ git ls-files -- '*.go'; git ls-files --others --exclude-standard -- '*.go'; })
+	@gotestsum -- -cover ./...
+.PHONY: pre-commit
+
 # --
 
 help:
