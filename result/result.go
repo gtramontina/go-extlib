@@ -42,12 +42,12 @@ type Result[Type any] interface {
 	UnwrapOrElse(func() Type) Type
 }
 
-// Ok returns a new Ok result.
+// Ok returns a new Ok result. See also: Err, Of.
 func Ok[Type any](value Type) Result[Type] {
 	return ok[Type]{value}
 }
 
-// Err returns a new Err result.
+// Err returns a new Err result. See also: Ok, Of.
 func Err[Type any](value error) Result[Type] {
 	return err[Type]{value}
 }
