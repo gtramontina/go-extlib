@@ -52,6 +52,15 @@ func Err[Type any](value error) Result[Type] {
 	return err[Type]{value}
 }
 
+// Of returns a new Ok result if the value is not nil, otherwise an Err result.
+// See also: Ok, Err.
+func Of[Type any](value Type, err error) Result[Type] {
+	if err != nil {
+		return Err[Type](err)
+	}
+	return Ok(value)
+}
+
 // Match pattern-matches on the given `result` and returns the output of the
 // matching function. If `result` is OK[Type], then `whenOk` is evaluated and
 // given the underlying value. If it is Err[Type], then `whenErr` is evaluated

@@ -38,6 +38,18 @@ func TestResult(t *testing.T) {
 		})
 	})
 
+	t.Run("when creating from the output of a method with (Type, error) signature", func(t *testing.T) {
+		t.Run("Ok if error is nil", func(t *testing.T) {
+			assert.Equals(t, result.Of(func() (int, error) { return 1, nil }()), result.Ok[int](1))
+			assert.Equals(t, result.Of(func() (string, error) { return "value", nil }()), result.Ok[string]("value"))
+		})
+
+		t.Run("Err if error is not nil", func(t *testing.T) {
+			assert.Equals(t, result.Of(func() (int, error) { return -1, errors.New("error message") }()), result.Err[int](errors.New("error message")))
+			assert.Equals(t, result.Of(func() (string, error) { return "", errors.New("error message") }()), result.Err[string](errors.New("error message")))
+		})
+	})
+
 	t.Run("when rendering as string", func(t *testing.T) {
 		t.Run("Ok informs the type and value", func(t *testing.T) {
 			assert.Eq(t, result.Ok[int](1).String(), "Ok[int](1)")
