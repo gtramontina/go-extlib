@@ -214,4 +214,33 @@ func TestMaybe(t *testing.T) {
 			assert.Eq(t, maybe.None[sample]().UnwrapOrElse(func() sample { return sample{-1} }), sample{-1})
 		})
 	})
+
+	t.Run("holds monadic properties", func(t *testing.T) {
+		t.Run("left identity", func(t *testing.T) {
+			v := 1
+			m := maybe.Some(v)
+			f := func(it int) interface{} { return maybe.Some(it * 2) }
+
+			a := maybe.FlatMap[int, int](m, f)
+			b := f(v).(maybe.Maybe[int])
+			assert.True(t, a.Equals(b))
+		})
+
+		t.Run("right identity", func(t *testing.T) {
+			m := maybe.Some(1)
+			a := maybe.FlatMap[int, int](m, func(it int) interface{} { return maybe.Some(it) })
+
+			assert.True(t, a.Equals(m))
+		})
+
+		t.Run("associativity", func(t *testing.T) {
+			m := maybe.Some(1)
+			f := func(it int) interface{} { return maybe.Some(it * 2) }
+			g := func(it int) interface{} { return maybe.Some(it + 4) }
+
+			a := maybe.FlatMap[int, int](maybe.FlatMap[int, int](m, f), g)
+			b := maybe.FlatMap[int, int](m, func(it int) interface{} { return maybe.FlatMap[int, int](f(it).(maybe.Maybe[int]), g) })
+			assert.True(t, a.Equals(b))
+		})
+	})
 }
