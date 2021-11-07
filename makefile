@@ -47,6 +47,7 @@ bench: | $(pre-reqs)
 
 lint: | $(pre-reqs)
 	@gofmt -w $$({ git ls-files -- '*.go'; git ls-files --others --exclude-standard -- '*.go'; })
+	@goimports -w $$({ git ls-files -- '*.go'; git ls-files --others --exclude-standard -- '*.go'; })
 .PHONY: lint
 
 clobber:
