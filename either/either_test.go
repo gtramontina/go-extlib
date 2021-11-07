@@ -2,9 +2,9 @@ package either_test
 
 import (
 	"fmt"
-	"github.com/gtramontina/go-collections/either"
-	"github.com/gtramontina/go-collections/internal/assert"
-	"github.com/gtramontina/go-collections/maybe"
+	"github.com/gtramontina/go-extlib/either"
+	"github.com/gtramontina/go-extlib/internal/assert"
+	"github.com/gtramontina/go-extlib/maybe"
 	"testing"
 )
 

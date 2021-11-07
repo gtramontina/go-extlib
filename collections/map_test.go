@@ -2,8 +2,8 @@ package collections_test
 
 import (
 	"fmt"
-	"github.com/gtramontina/go-collections/collections"
-	"github.com/gtramontina/go-collections/internal/assert"
+	"github.com/gtramontina/go-extlib/collections"
+	"github.com/gtramontina/go-extlib/internal/assert"
 	"testing"
 	"time"
 )

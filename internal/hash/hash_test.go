@@ -1,8 +1,8 @@
 package hash_test
 
 import (
-	"github.com/gtramontina/go-collections/internal/assert"
-	"github.com/gtramontina/go-collections/internal/hash"
+	"github.com/gtramontina/go-extlib/internal/assert"
+	"github.com/gtramontina/go-extlib/internal/hash"
 	"reflect"
 	"testing"
 	"testing/quick"

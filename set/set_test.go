@@ -1,8 +1,8 @@
 package set_test
 
 import (
-	"github.com/gtramontina/go-collections/internal/assert"
-	"github.com/gtramontina/go-collections/set"
+	"github.com/gtramontina/go-extlib/internal/assert"
+	"github.com/gtramontina/go-extlib/set"
 	"testing"
 )
 

@@ -1,6 +1,6 @@
 package either
 
-import "github.com/gtramontina/go-collections/maybe"
+import "github.com/gtramontina/go-extlib/maybe"
 
 // Either is a container for a value of one of two possible types (a disjoint
 // union): Left or Right.

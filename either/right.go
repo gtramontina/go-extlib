@@ -2,7 +2,7 @@ package either
 
 import (
 	"fmt"
-	"github.com/gtramontina/go-collections/maybe"
+	"github.com/gtramontina/go-extlib/maybe"
 	"reflect"
 )
 

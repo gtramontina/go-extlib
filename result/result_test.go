@@ -3,9 +3,9 @@ package result_test
 import (
 	"errors"
 	"fmt"
-	"github.com/gtramontina/go-collections/internal/assert"
-	"github.com/gtramontina/go-collections/maybe"
-	"github.com/gtramontina/go-collections/result"
+	"github.com/gtramontina/go-extlib/internal/assert"
+	"github.com/gtramontina/go-extlib/maybe"
+	"github.com/gtramontina/go-extlib/result"
 	"testing"
 )
 

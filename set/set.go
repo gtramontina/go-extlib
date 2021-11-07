@@ -2,7 +2,7 @@ package set
 
 import (
 	"fmt"
-	"github.com/gtramontina/go-collections/internal/hash"
+	"github.com/gtramontina/go-extlib/internal/hash"
 	"reflect"
 	"sort"
 	"strings"

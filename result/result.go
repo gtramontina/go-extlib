@@ -1,6 +1,6 @@
 package result
 
-import "github.com/gtramontina/go-collections/maybe"
+import "github.com/gtramontina/go-extlib/maybe"
 
 // Result represents a computation that may or may not have succeeded.
 type Result[Type any] interface {

@@ -1,10 +1,10 @@
 package hashmap_test
 
 import (
-	"github.com/gtramontina/go-collections/hashmap"
-	"github.com/gtramontina/go-collections/internal/assert"
-	"github.com/gtramontina/go-collections/maybe"
-	"github.com/gtramontina/go-collections/set"
+	"github.com/gtramontina/go-extlib/hashmap"
+	"github.com/gtramontina/go-extlib/internal/assert"
+	"github.com/gtramontina/go-extlib/maybe"
+	"github.com/gtramontina/go-extlib/set"
 	"testing"
 )
 

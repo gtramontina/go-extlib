@@ -2,8 +2,8 @@ package maybe_test
 
 import (
 	"fmt"
-	"github.com/gtramontina/go-collections/internal/assert"
-	"github.com/gtramontina/go-collections/maybe"
+	"github.com/gtramontina/go-extlib/internal/assert"
+	"github.com/gtramontina/go-extlib/maybe"
 	"strconv"
 	"testing"
 )

@@ -1,9 +1,9 @@
 package hashmap
 
 import (
-	"github.com/gtramontina/go-collections/internal/hash"
-	"github.com/gtramontina/go-collections/maybe"
-	"github.com/gtramontina/go-collections/set"
+	"github.com/gtramontina/go-extlib/internal/hash"
+	"github.com/gtramontina/go-extlib/maybe"
+	"github.com/gtramontina/go-extlib/set"
 	"reflect"
 )
 
