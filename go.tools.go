@@ -1,6 +1,6 @@
 //go:build tools
 
-package go_collections
+package tools
 
 import (
 	_ "gotest.tools/gotestsum"
