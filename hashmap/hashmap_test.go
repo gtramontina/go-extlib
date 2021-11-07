@@ -1,11 +1,12 @@
 package hashmap_test
 
 import (
+	"testing"
+
 	"github.com/gtramontina/go-extlib/hashmap"
 	"github.com/gtramontina/go-extlib/internal/assert"
 	"github.com/gtramontina/go-extlib/maybe"
 	"github.com/gtramontina/go-extlib/set"
-	"testing"
 )
 
 func TestHashMap(t *testing.T) {

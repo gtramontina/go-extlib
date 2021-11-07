@@ -2,10 +2,11 @@ package set
 
 import (
 	"fmt"
-	"github.com/gtramontina/go-extlib/internal/hash"
 	"reflect"
 	"sort"
 	"strings"
+
+	"github.com/gtramontina/go-extlib/internal/hash"
 )
 
 // Set is a finite collection that contains no duplicate members. As implied by

@@ -2,8 +2,9 @@ package either
 
 import (
 	"fmt"
-	"github.com/gtramontina/go-extlib/maybe"
 	"reflect"
+
+	"github.com/gtramontina/go-extlib/maybe"
 )
 
 type right[L any, R any] struct {

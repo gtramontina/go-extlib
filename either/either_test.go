@@ -2,10 +2,11 @@ package either_test
 
 import (
 	"fmt"
+	"testing"
+
 	"github.com/gtramontina/go-extlib/either"
 	"github.com/gtramontina/go-extlib/internal/assert"
 	"github.com/gtramontina/go-extlib/maybe"
-	"testing"
 )
 
 func TestEither(t *testing.T) {

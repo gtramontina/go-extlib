@@ -2,10 +2,11 @@ package maybe_test
 
 import (
 	"fmt"
-	"github.com/gtramontina/go-extlib/internal/assert"
-	"github.com/gtramontina/go-extlib/maybe"
 	"strconv"
 	"testing"
+
+	"github.com/gtramontina/go-extlib/internal/assert"
+	"github.com/gtramontina/go-extlib/maybe"
 )
 
 func TestMaybe(t *testing.T) {

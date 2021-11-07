@@ -2,7 +2,10 @@ module github.com/gtramontina/go-extlib
 
 go 1.18
 
-require gotest.tools/gotestsum v1.7.0
+require (
+	golang.org/x/tools v0.1.7
+	gotest.tools/gotestsum v1.7.0
+)
 
 require (
 	github.com/dnephin/pflag v1.0.7 // indirect
@@ -13,10 +16,9 @@ require (
 	github.com/mattn/go-colorable v0.1.8 // indirect
 	github.com/mattn/go-isatty v0.0.12 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
-	golang.org/x/mod v0.3.0 // indirect
-	golang.org/x/sync v0.0.0-20201020160332-67f06af15bc9 // indirect
-	golang.org/x/sys v0.0.0-20210615035016-665e8c7367d1 // indirect
+	golang.org/x/mod v0.4.2 // indirect
+	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
+	golang.org/x/sys v0.0.0-20210809222454-d867a43fc93e // indirect
 	golang.org/x/term v0.0.0-20201126162022-7de9c90e9dd1 // indirect
-	golang.org/x/tools v0.1.0 // indirect
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
 )

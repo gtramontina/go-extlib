@@ -1,11 +1,12 @@
 package hash_test
 
 import (
-	"github.com/gtramontina/go-extlib/internal/assert"
-	"github.com/gtramontina/go-extlib/internal/hash"
 	"reflect"
 	"testing"
 	"testing/quick"
+
+	"github.com/gtramontina/go-extlib/internal/assert"
+	"github.com/gtramontina/go-extlib/internal/hash"
 )
 
 func TestHash(t *testing.T) {

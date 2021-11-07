@@ -1,9 +1,10 @@
 package set_test
 
 import (
+	"testing"
+
 	"github.com/gtramontina/go-extlib/internal/assert"
 	"github.com/gtramontina/go-extlib/set"
-	"testing"
 )
 
 func TestSet(t *testing.T) {

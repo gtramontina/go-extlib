@@ -1,9 +1,10 @@
 package collections_test
 
 import (
+	"testing"
+
 	"github.com/gtramontina/go-extlib/collections"
 	"github.com/gtramontina/go-extlib/internal/assert"
-	"testing"
 )
 
 func TestFilter(t *testing.T) {

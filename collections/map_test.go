@@ -2,10 +2,11 @@ package collections_test
 
 import (
 	"fmt"
-	"github.com/gtramontina/go-extlib/collections"
-	"github.com/gtramontina/go-extlib/internal/assert"
 	"testing"
 	"time"
+
+	"github.com/gtramontina/go-extlib/collections"
+	"github.com/gtramontina/go-extlib/internal/assert"
 )
 
 func TestMap(t *testing.T) {

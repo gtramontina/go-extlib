@@ -1,10 +1,11 @@
 package hashmap
 
 import (
+	"reflect"
+
 	"github.com/gtramontina/go-extlib/internal/hash"
 	"github.com/gtramontina/go-extlib/maybe"
 	"github.com/gtramontina/go-extlib/set"
-	"reflect"
 )
 
 // HashMap implements a structure that maps keys to values. It uses a hash

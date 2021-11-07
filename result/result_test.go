@@ -3,10 +3,11 @@ package result_test
 import (
 	"errors"
 	"fmt"
+	"testing"
+
 	"github.com/gtramontina/go-extlib/internal/assert"
 	"github.com/gtramontina/go-extlib/maybe"
 	"github.com/gtramontina/go-extlib/result"
-	"testing"
 )
 
 func TestResult(t *testing.T) {
