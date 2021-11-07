@@ -54,7 +54,7 @@ clobber:
 .PHONY: clobber
 
 pre-commit: | $(pre-reqs)
-	@gofmt -w $$({ git ls-files -- '*.go'; git ls-files --others --exclude-standard -- '*.go'; })
+	@MAKEFLAGS= $(MAKE) fmt
 	@gotestsum -- -cover ./...
 .PHONY: pre-commit
 
