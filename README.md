@@ -12,7 +12,7 @@ My main motivation was to try out generics in Go. I jumped straight into the usu
 
 Later I thought it would be nice to implement `Set`, and then `HashMap`, with which I got carried away and ended up implementing a somewhat naïve [hasher](https://github.com/gtramontina/go-extlib/blob/main/internal/hash/hash.go) (you can read more on the rationale on [this commit](https://github.com/gtramontina/go-extlib/commit/808ac8236c433587c4dc2f85479c1189a5df6010)).
 
-When I realized, I was already having fun with `Maybe`, `Either` and `Result`. Here is where I stumbled upon some of the limitations of Go generics. Right when I was experimenting with it, I came across a blog post by [@hypirion](https://github.com/hypirion) titled "[Type-Safe HTTP Servers in Go via Generics](https://hypirion.com/musings/type-safe-http-servers-in-go-via-generics)" where the author bumps into these same limitations.
+When I realized, I was already having fun with `Maybe`, `Either` and `Result`. Here is where I stumbled upon some limitations of Go generics. Right when I was experimenting with it, I came across a blog post by [@hypirion](https://github.com/hypirion) titled "[Type-Safe HTTP Servers in Go via Generics](https://hypirion.com/musings/type-safe-http-servers-in-go-via-generics)" where the author bumps into these same limitations.
 
 When writing software in Go, I've always wanted slightly higher level constructs, especially to represent business domain concepts. Some may say I haven't fully embraced Go. Perhaps I haven't 🤷. But I sure know people who'd also like to go up in abstraction a tad bit.
 
