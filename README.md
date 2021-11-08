@@ -14,7 +14,7 @@ Later I thought it would be nice to implement `Set`, and then `HashMap`, with wh
 
 When I realized, I was already having fun with `Maybe`, `Either` and `Result`. Here is where I stumbled upon some of the limitations of Go generics. Right when I was experimenting with it, I came across a blog post by [@hypirion](https://github.com/hypirion) titled "[Type-Safe HTTP Servers in Go via Generics](https://hypirion.com/musings/type-safe-http-servers-in-go-via-generics)" where the author bumps into these same limitations.
 
-When writing software in Go, I've always wanted slightly higher level constructs, especially to represent business domain concepts. Some may say I haven't fully embraced Go. Perhaps I haven't 🤷. But I sure know people who'd also like to up in abstraction a tad bit.
+When writing software in Go, I've always wanted slightly higher level constructs, especially to represent business domain concepts. Some may say I haven't fully embraced Go. Perhaps I haven't 🤷. But I sure know people who'd also like to go up in abstraction a tad bit.
 
 Hope this is enough motivation… 😅
 
