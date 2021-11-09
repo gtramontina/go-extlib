@@ -10,7 +10,7 @@ import (
 
 func TestFoldLeft(t *testing.T) {
 	t.Run("is left associative", func(t *testing.T) {
-		f := func(a, b int) int { return a - b }
+		f := func(accumulator, value int) int { return accumulator - value }
 		assert.Eq(t, collections.FoldLeft([]int{}, f, 9), 9)            // (9)
 		assert.Eq(t, collections.FoldLeft([]int{1}, f, 9), 8)           // (9 - 1)
 		assert.Eq(t, collections.FoldLeft([]int{1, 2}, f, 9), 6)        // ((9 - 1) - 2)
@@ -20,14 +20,14 @@ func TestFoldLeft(t *testing.T) {
 	})
 
 	t.Run("can fold into a different type", func(t *testing.T) {
-		f := func(a string, b int) string { return fmt.Sprintf("(%s + %d)", a, b) }
+		f := func(accumulator string, value int) string { return fmt.Sprintf("(%s + %d)", accumulator, value) }
 		assert.Eq(t, collections.FoldLeft([]int{1, 2, 3}, f, "0"), "(((0 + 1) + 2) + 3)")
 	})
 }
 
 func TestFoldRight(t *testing.T) {
 	t.Run("is right associative", func(t *testing.T) {
-		f := func(a, b int) int { return a - b }
+		f := func(value, accumulator int) int { return value - accumulator }
 		assert.Eq(t, collections.FoldRight([]int{}, f, 9), 9)           // (9)
 		assert.Eq(t, collections.FoldRight([]int{1}, f, 9), -8)         // (1 - 9)
 		assert.Eq(t, collections.FoldRight([]int{1, 2}, f, 9), 8)       // (1 - (2 - 9))
@@ -37,7 +37,7 @@ func TestFoldRight(t *testing.T) {
 	})
 
 	t.Run("can fold into a different type", func(t *testing.T) {
-		f := func(a int, b string) string { return fmt.Sprintf("(%d + %s)", a, b) }
+		f := func(value int, accumulator string) string { return fmt.Sprintf("(%d + %s)", value, accumulator) }
 		assert.Eq(t, collections.FoldRight([]int{1, 2, 3}, f, "0"), "(1 + (2 + (3 + 0)))")
 	})
 }

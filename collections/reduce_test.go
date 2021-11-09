@@ -14,7 +14,7 @@ func TestReduceLeft(t *testing.T) {
 	})
 
 	t.Run("is left associative", func(t *testing.T) {
-		f := func(a, b int) int { return a - b }
+		f := func(accumulator, value int) int { return accumulator - value }
 		assert.Eq(t, collections.ReduceLeft([]int{1}, f), 1)           // (1)
 		assert.Eq(t, collections.ReduceLeft([]int{1, 2}, f), -1)       // (1 - 2)
 		assert.Eq(t, collections.ReduceLeft([]int{1, 2, 3}, f), -4)    // ((1 - 2) - 3)
@@ -30,7 +30,7 @@ func TestReduceRight(t *testing.T) {
 	})
 
 	t.Run("is right associative", func(t *testing.T) {
-		f := func(a, b int) int { return a - b }
+		f := func(value, accumulator int) int { return value - accumulator }
 		assert.Eq(t, collections.ReduceRight([]int{1}, f), 1)           // (1)
 		assert.Eq(t, collections.ReduceRight([]int{1, 2}, f), -1)       // (1 - 2)
 		assert.Eq(t, collections.ReduceRight([]int{1, 2, 3}, f), 2)     // (1 - (2 - 3))
