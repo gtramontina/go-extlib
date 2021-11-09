@@ -30,7 +30,7 @@ func ReduceLeft[Type any](collection []Type, f func(Type, Type) Type) Type {
 // ReduceLeft. Example:
 //
 //   subtract := func (a, b int) int { return a - b }
-//   _ = ReduceLeft[int]([]int{1, 2, 3, 4}, subtract) == (1 - (2 - (3 - 4)))
+//   _ = ReduceRight[int]([]int{1, 2, 3, 4}, subtract) == (1 - (2 - (3 - 4)))
 func ReduceRight[Type any](collection []Type, f func(Type, Type) Type) Type {
 	if len(collection) == 0 {
 		panic("cannot ReduceRight an empty slice")
