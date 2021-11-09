@@ -4,7 +4,8 @@ package collections
 // combining them using the specified function associating left. When applying
 // an associative function, there is no difference between this and ReduceRight.
 // However, if the function is non-associative, the results are different due to
-// the order of the associations. See also: ReduceRight. Example:
+// the order of the associations. Panics if the collection is empty. See also:
+// ReduceRight. Example:
 //
 //   subtract := func (a, b int) int { return a - b }
 //   _ = ReduceLeft[int]([]int{1, 2, 3, 4}, subtract) == (((1 - 2) - 3) - 4)
@@ -25,7 +26,8 @@ func ReduceLeft[Type any](collection []Type, f func(Type, Type) Type) Type {
 // combining them using the specified function associating right. When applying
 // an associative function, there is no difference between this and ReduceLeft.
 // However, if the function is non-associative, the results are different due to
-// the order of the associations. See also: ReduceLeft. Example:
+// the order of the associations. Panics if the collection is empty. See also:
+// ReduceLeft. Example:
 //
 //   subtract := func (a, b int) int { return a - b }
 //   _ = ReduceLeft[int]([]int{1, 2, 3, 4}, subtract) == (1 - (2 - (3 - 4)))
