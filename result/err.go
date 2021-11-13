@@ -43,15 +43,15 @@ func (e err[Type]) UnwrapErr() error {
 	return e.value
 }
 
-func (e err[Type]) UnwrapOr(or Type) Type {
+func (err[Type]) UnwrapOr(or Type) Type {
 	return or
 }
 
-func (e err[Type]) UnwrapOrElse(orElse func() Type) Type {
+func (err[Type]) UnwrapOrElse(orElse func() Type) Type {
 	return orElse()
 }
 
-func (o err[Type]) Or(or Result[Type]) Result[Type] {
+func (err[Type]) Or(or Result[Type]) Result[Type] {
 	return or
 }
 
