@@ -45,6 +45,12 @@ type Result[Type any] interface {
 	// first result is Err, the second result is returned. Otherwise, the second
 	// result is returned. This is equivalent to result.Or.
 	Or(Result[Type]) Result[Type]
+
+	// And performs a logical 'and' operation on the two given results. If the
+	// first result is Ok, the second result is returned. Otherwise, the first
+	// result is returned. This is almost equivalent to result.And. The
+	// difference is that this function does not remap the error type.
+	And(Result[Type]) Result[Type]
 }
 
 // Ok returns a new Ok result. See also: Err, Of.

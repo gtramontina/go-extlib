@@ -55,3 +55,7 @@ func (o ok[Type]) UnwrapOrElse(_ func() Type) Type {
 func (o ok[Type]) Or(_ Result[Type]) Result[Type] {
 	return Ok(o.value)
 }
+
+func (o ok[Type]) And(and Result[Type]) Result[Type] {
+	return and
+}

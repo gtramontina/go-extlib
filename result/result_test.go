@@ -224,27 +224,47 @@ func TestResult(t *testing.T) {
 
 	t.Run("when combining with another Result with 'and'", func(t *testing.T) {
 		t.Run("Ok and Err results in Err", func(t *testing.T) {
+			assert.Equals(t, result.Ok[int](1).And(result.Err[int](errors.New("error message"))), result.Err[int](errors.New("error message")))
+			assert.Equals(t, result.Ok[string]("value").And(result.Err[string](errors.New("error message"))), result.Err[string](errors.New("error message")))
 			assert.Equals(t, result.And(result.Ok[int](1), result.Err[int](errors.New("error message"))), result.Err[int](errors.New("error message")))
 			assert.Equals(t, result.And(result.Ok[string]("value"), result.Err[string](errors.New("error message"))), result.Err[string](errors.New("error message")))
-			assert.Equals(t, result.And(result.Ok[string]("value"), result.Err[int](errors.New("error message"))), result.Err[int](errors.New("error message")))
+
+			t.Run("with a different type", func(t *testing.T) {
+				assert.Equals(t, result.And(result.Ok[string]("value"), result.Err[int](errors.New("error message"))), result.Err[int](errors.New("error message")))
+			})
 		})
 
 		t.Run("Err and Ok results in Err", func(t *testing.T) {
+			assert.Equals(t, result.Err[int](errors.New("error message")).And(result.Ok[int](1)), result.Err[int](errors.New("error message")))
+			assert.Equals(t, result.Err[string](errors.New("error message")).And(result.Ok[string]("value")), result.Err[string](errors.New("error message")))
 			assert.Equals(t, result.And(result.Err[int](errors.New("error message")), result.Ok[int](1)), result.Err[int](errors.New("error message")))
 			assert.Equals(t, result.And(result.Err[string](errors.New("error message")), result.Ok[string]("value")), result.Err[string](errors.New("error message")))
-			assert.Equals(t, result.And(result.Err[string](errors.New("error message")), result.Ok[int](1)), result.Err[int](errors.New("error message")))
+
+			t.Run("with a different type", func(t *testing.T) {
+				assert.Equals(t, result.And(result.Err[string](errors.New("error message")), result.Ok[int](1)), result.Err[int](errors.New("error message")))
+			})
 		})
 
 		t.Run("Err and Err results in first Err", func(t *testing.T) {
+			assert.Equals(t, result.Err[int](errors.New("error message 1")).And(result.Err[int](errors.New("error message 2"))), result.Err[int](errors.New("error message 1")))
+			assert.Equals(t, result.Err[string](errors.New("error message 1")).And(result.Err[string](errors.New("error message 2"))), result.Err[string](errors.New("error message 1")))
 			assert.Equals(t, result.And(result.Err[int](errors.New("error message 1")), result.Err[int](errors.New("error message 2"))), result.Err[int](errors.New("error message 1")))
 			assert.Equals(t, result.And(result.Err[string](errors.New("error message 1")), result.Err[string](errors.New("error message 2"))), result.Err[string](errors.New("error message 1")))
-			assert.Equals(t, result.And(result.Err[int](errors.New("error message 1")), result.Err[string](errors.New("error message 2"))), result.Err[string](errors.New("error message 1")))
+
+			t.Run("with a different type", func(t *testing.T) {
+				assert.Equals(t, result.And(result.Err[int](errors.New("error message 1")), result.Err[string](errors.New("error message 2"))), result.Err[string](errors.New("error message 1")))
+			})
 		})
 
 		t.Run("Ok and Ok results in second Ok", func(t *testing.T) {
+			assert.Equals(t, result.Ok[int](1).And(result.Ok[int](2)), result.Ok[int](2))
+			assert.Equals(t, result.Ok[string]("value 1").And(result.Ok[string]("value 2")), result.Ok[string]("value 2"))
 			assert.Equals(t, result.And(result.Ok[int](1), result.Ok[int](2)), result.Ok[int](2))
 			assert.Equals(t, result.And(result.Ok[string]("value 1"), result.Ok[string]("value 2")), result.Ok[string]("value 2"))
-			assert.Equals(t, result.And(result.Ok[int](1), result.Ok[string]("value 2")), result.Ok[string]("value 2"))
+
+			t.Run("with a different type", func(t *testing.T) {
+				assert.Equals(t, result.And(result.Ok[int](1), result.Ok[string]("value 2")), result.Ok[string]("value 2"))
+			})
 		})
 	})
 
