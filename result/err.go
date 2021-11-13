@@ -50,3 +50,7 @@ func (e err[Type]) UnwrapOr(or Type) Type {
 func (e err[Type]) UnwrapOrElse(orElse func() Type) Type {
 	return orElse()
 }
+
+func (o err[Type]) Or(or Result[Type]) Result[Type] {
+	return or
+}

@@ -40,6 +40,11 @@ type Result[Type any] interface {
 	// calling the function if the result is Err. See also: Unwrap, UnwrapErr,
 	// UnwrapOr.
 	UnwrapOrElse(func() Type) Type
+
+	// Or performs a logical 'or' operation on the two given results. If the
+	// first result is Err, the second result is returned. Otherwise, the second
+	// result is returned. This is equivalent to result.Or.
+	Or(Result[Type]) Result[Type]
 }
 
 // Ok returns a new Ok result. See also: Err, Of.

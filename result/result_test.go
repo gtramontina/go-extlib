@@ -250,21 +250,29 @@ func TestResult(t *testing.T) {
 
 	t.Run("when combining with another Result with 'or'", func(t *testing.T) {
 		t.Run("Ok or Err results in Ok", func(t *testing.T) {
+			assert.Equals(t, result.Ok[int](1).Or(result.Err[int](errors.New("error message"))), result.Ok[int](1))
+			assert.Equals(t, result.Ok[string]("value").Or(result.Err[string](errors.New("error message"))), result.Ok[string]("value"))
 			assert.Equals(t, result.Or(result.Ok[int](1), result.Err[int](errors.New("error message"))), result.Ok[int](1))
 			assert.Equals(t, result.Or(result.Ok[string]("value"), result.Err[string](errors.New("error message"))), result.Ok[string]("value"))
 		})
 
 		t.Run("Err or Ok results in Ok", func(t *testing.T) {
+			assert.Equals(t, result.Err[int](errors.New("error message")).Or(result.Ok[int](1)), result.Ok[int](1))
+			assert.Equals(t, result.Err[string](errors.New("error message")).Or(result.Ok[string]("value")), result.Ok[string]("value"))
 			assert.Equals(t, result.Or(result.Err[int](errors.New("error message")), result.Ok[int](1)), result.Ok[int](1))
 			assert.Equals(t, result.Or(result.Err[string](errors.New("error message")), result.Ok[string]("value")), result.Ok[string]("value"))
 		})
 
 		t.Run("Err or Err results in second Err", func(t *testing.T) {
+			assert.Equals(t, result.Err[int](errors.New("error message 1")).Or(result.Err[int](errors.New("error message 2"))), result.Err[int](errors.New("error message 2")))
+			assert.Equals(t, result.Err[string](errors.New("error message 1")).Or(result.Err[string](errors.New("error message 2"))), result.Err[string](errors.New("error message 2")))
 			assert.Equals(t, result.Or(result.Err[int](errors.New("error message 1")), result.Err[int](errors.New("error message 2"))), result.Err[int](errors.New("error message 2")))
 			assert.Equals(t, result.Or(result.Err[string](errors.New("error message 1")), result.Err[string](errors.New("error message 2"))), result.Err[string](errors.New("error message 2")))
 		})
 
 		t.Run("Ok or Ok results in first Ok", func(t *testing.T) {
+			assert.Equals(t, result.Ok[int](1).Or(result.Ok[int](2)), result.Ok[int](1))
+			assert.Equals(t, result.Ok[string]("value 1").Or(result.Ok[string]("value 2")), result.Ok[string]("value 1"))
 			assert.Equals(t, result.Or(result.Ok[int](1), result.Ok[int](2)), result.Ok[int](1))
 			assert.Equals(t, result.Or(result.Ok[string]("value 1"), result.Ok[string]("value 2")), result.Ok[string]("value 1"))
 		})
