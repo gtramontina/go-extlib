@@ -97,7 +97,7 @@ func MapErr[Type any](result Result[Type], mapper func(error) error) Result[Type
 
 // And performs a logical 'and' operation on the two given results. If the first
 // result is Ok, the second result is returned. Otherwise, the value of the
-// first result is returned as Err.
+// first result is returned as Err. See also: Or.
 func And[Type any, Out any](resultA Result[Type], resultB Result[Out]) Result[Out] {
 	if resultA.IsOk() {
 		return resultB
@@ -107,7 +107,7 @@ func And[Type any, Out any](resultA Result[Type], resultB Result[Out]) Result[Ou
 
 // Or performs a logical 'or' operation on the two given results. If the first
 // result is Err, the second result is returned. Otherwise, the second result is
-// returned. This is equivalent to Result.Or.
+// returned. This is equivalent to Result.Or. See also: And.
 func Or[Type any](resultA Result[Type], resultB Result[Type]) Result[Type] {
 	return resultA.Or(resultB)
 }
