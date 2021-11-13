@@ -99,3 +99,13 @@ func And[Type any, Out any](resultA Result[Type], resultB Result[Out]) Result[Ou
 	}
 	return Err[Out](resultA.(err[Type]).value)
 }
+
+// Or performs a logical 'or' operation on the two given results. If the first
+// result is Err, the second result is returned. Otherwise, the second result is
+// returned.
+func Or[Type any](resultA Result[Type], resultB Result[Type]) Result[Type] {
+	if resultA.IsOk() {
+		return resultA
+	}
+	return resultB
+}
