@@ -43,13 +43,14 @@ type Result[Type any] interface {
 
 	// Or performs a logical 'or' operation on the two given results. If the
 	// first result is Err, the second result is returned. Otherwise, the second
-	// result is returned. This is equivalent to result.Or.
+	// result is returned. This is equivalent to result.Or. See also: And.
 	Or(Result[Type]) Result[Type]
 
 	// And performs a logical 'and' operation on the two given results. If the
 	// first result is Ok, the second result is returned. Otherwise, the first
 	// result is returned. This is almost equivalent to result.And. The
-	// difference is that this function does not remap the error type.
+	// difference is that this function does not remap the error type. See also:
+	// Or.
 	And(Result[Type]) Result[Type]
 }
 
@@ -103,7 +104,8 @@ func MapErr[Type any](result Result[Type], mapper func(error) error) Result[Type
 
 // And performs a logical 'and' operation on the two given results. If the first
 // result is Ok, the second result is returned. Otherwise, the value of the
-// first result is returned as Err. See also: Or.
+// first result is returned as Err. This is almost equivalent to Result.And. The
+// difference is that this function maps the error type. See also: Or.
 func And[Type any, Out any](resultA Result[Type], resultB Result[Out]) Result[Out] {
 	if resultA.IsOk() {
 		return resultB
