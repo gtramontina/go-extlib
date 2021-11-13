@@ -107,7 +107,7 @@ func And[Type any, Out any](resultA Result[Type], resultB Result[Out]) Result[Ou
 
 // Or performs a logical 'or' operation on the two given results. If the first
 // result is Err, the second result is returned. Otherwise, the second result is
-// returned.
+// returned. This is equivalent to Result.Or.
 func Or[Type any](resultA Result[Type], resultB Result[Type]) Result[Type] {
 	return resultA.Or(resultB)
 }
