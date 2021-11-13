@@ -109,8 +109,5 @@ func And[Type any, Out any](resultA Result[Type], resultB Result[Out]) Result[Ou
 // result is Err, the second result is returned. Otherwise, the second result is
 // returned.
 func Or[Type any](resultA Result[Type], resultB Result[Type]) Result[Type] {
-	if resultA.IsOk() {
-		return resultA
-	}
-	return resultB
+	return resultA.Or(resultB)
 }
