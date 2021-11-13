@@ -89,3 +89,13 @@ func MapErr[Type any](result Result[Type], mapper func(error) error) Result[Type
 	}
 	return Err[Type](mapper(result.(err[Type]).value))
 }
+
+// And performs a logical 'and' operation on the two given results. If the first
+// result is Ok, the second result is returned. Otherwise, the value of the
+// first result is returned as Err.
+func And[Type any, Out any](resultA Result[Type], resultB Result[Out]) Result[Out] {
+	if resultA.IsOk() {
+		return resultB
+	}
+	return Err[Out](resultA.(err[Type]).value)
+}
