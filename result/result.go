@@ -49,7 +49,7 @@ type Result[Type any] interface {
 	// And performs a logical 'and' operation on the two given results. If the
 	// first result is Ok, the second result is returned. Otherwise, the first
 	// result is returned. This is almost equivalent to result.And. The
-	// difference is that this function does not remap the error type. See also:
+	// difference is that this method does not remap the error type. See also:
 	// Or.
 	And(Result[Type]) Result[Type]
 }
