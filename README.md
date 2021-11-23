@@ -18,6 +18,8 @@ When writing software in Go, I've always wanted slightly higher level constructs
 
 Hope this is enough motivation… 😅
 
+⚠️ As the note above says, this is an experiment and no attention was paid to performance or allocations.
+
 ##  The ExtLib
 
 <sup>🚧 This section is a work in progress.</sup>
