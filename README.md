@@ -24,18 +24,6 @@ Hope this is enough motivation… 😅
 
 <sup>🚧 This section is a work in progress.</sup>
 
-### Collections
-
-### Either
-
-### HashMap
-
-### Maybe
-
-### Result
-
-### Set
-
 ---
 
 <p align="right">
