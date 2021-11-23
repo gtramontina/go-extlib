@@ -1,5 +1,5 @@
 <h1>
-  <img alt="ExtLib Logo" height="48" src="https://gist.githubusercontent.com/gtramontina/f3a29963a7aa558d72098f149ebe0e09/raw/ed1c72dae7f341b6ce426c09afa883ce1d6650eb/go-extlib.svg">
+  <img alt="ExtLib Logo" height="48" src="https://gist.githubusercontent.com/gtramontina/f3a29963a7aa558d72098f149ebe0e09/raw/f85c9e12ebb741188d1de0d1ab1b16da0330df17/go-extlib.svg">
   <img alt="ExtLib Gopher Mascot" height="48" src="https://storage.googleapis.com/gopherizeme.appspot.com/gophers/9edef573bbbfd880698627fea674fad14bbce477.png" align="right">
 </h1>
 
