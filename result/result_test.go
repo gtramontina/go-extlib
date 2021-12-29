@@ -222,6 +222,36 @@ func TestResult(t *testing.T) {
 		})
 	})
 
+	t.Run("when flat-mapping", func(t *testing.T) {
+		t.Run("behaves like mapping if result is not a Result", func(t *testing.T) {
+			t.Run("Ok remains Ok but of the mapped type", func(t *testing.T) {
+				assert.Equals(t, result.FlatMap[int, int](result.Ok[int](1), func(it int) interface{} { return it + 1 }), result.Ok[int](2))
+				assert.Equals(t, result.FlatMap[int, string](result.Ok[int](1), func(it int) interface{} { return fmt.Sprintf("%d", it) }), result.Ok[string]("1"))
+				assert.Equals(t, result.FlatMap[int, sample](result.Ok[int](1), func(it int) interface{} { return sample{it} }), result.Ok[sample](sample{1}))
+			})
+
+			t.Run("Err remains Err but of the mapped type", func(t *testing.T) {
+				assert.Equals(t, result.FlatMap[int, int](result.Err[int](errors.New("error message")), func(it int) interface{} { return it + 1 }), result.Err[int](errors.New("error message")))
+				assert.Equals(t, result.FlatMap[int, string](result.Err[int](errors.New("error message")), func(it int) interface{} { return fmt.Sprintf("%d", it) }), result.Err[string](errors.New("error message")))
+				assert.Equals(t, result.FlatMap[int, sample](result.Err[int](errors.New("error message")), func(it int) interface{} { return sample{it} }), result.Err[sample](errors.New("error message")))
+			})
+		})
+
+		t.Run("flattens if result is a Result", func(t *testing.T) {
+			t.Run("Ok remains Ok but of the mapped type", func(t *testing.T) {
+				assert.Equals(t, result.FlatMap[int, int](result.Ok[int](1), func(it int) interface{} { return result.Ok(it + 1) }), result.Ok[int](2))
+				assert.Equals(t, result.FlatMap[int, string](result.Ok[int](1), func(it int) interface{} { return result.Ok(fmt.Sprintf("%d", it)) }), result.Ok[string]("1"))
+				assert.Equals(t, result.FlatMap[int, sample](result.Ok[int](1), func(it int) interface{} { return result.Ok(sample{it}) }), result.Ok[sample](sample{1}))
+			})
+
+			t.Run("Err remains Err but of the mapped type", func(t *testing.T) {
+				assert.Equals(t, result.FlatMap[int, int](result.Err[int](errors.New("error message")), func(it int) interface{} { return result.Ok(it + 1) }), result.Err[int](errors.New("error message")))
+				assert.Equals(t, result.FlatMap[int, string](result.Err[int](errors.New("error message")), func(it int) interface{} { return result.Ok(fmt.Sprintf("%d", it)) }), result.Err[string](errors.New("error message")))
+				assert.Equals(t, result.FlatMap[int, sample](result.Err[int](errors.New("error message")), func(it int) interface{} { return result.Ok(sample{it}) }), result.Err[sample](errors.New("error message")))
+			})
+		})
+	})
+
 	t.Run("when combining with another Result with 'and'", func(t *testing.T) {
 		t.Run("Ok and Err results in Err", func(t *testing.T) {
 			assert.Equals(t, result.Ok[int](1).And(result.Err[int](errors.New("error message"))), result.Err[int](errors.New("error message")))

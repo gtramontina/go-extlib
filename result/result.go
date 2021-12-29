@@ -93,6 +93,20 @@ func Map[Type any, Out any](result Result[Type], mapper func(Type) Out) Result[O
 	return Err[Out](result.(err[Type]).value)
 }
 
+// FlatMap maps a Result[Type] to Result[Out] by applying the given `mapper`
+// function to a contained Ok value, leaving an Err value untouched. It wraps
+// the result into a Result[Out] if not yet a Result[Type]. See also: Map.
+func FlatMap[From any, To any](result Result[From], mapper func(From) interface{}) Result[To] {
+	if result.IsOk() {
+		mapped := mapper(result.(ok[From]).value)
+		if mappedToResult, ok := mapped.(Result[To]); ok {
+			return mappedToResult
+		}
+		return Ok[To](mapped.(To))
+	}
+	return Err[To](result.(err[From]).value)
+}
+
 // MapErr maps a Result[Type] to Result[Type] by applying the given `mapper`
 // function to a contained Err value, leaving an Ok value untouched.
 func MapErr[Type any](result Result[Type], mapper func(error) error) Result[Type] {
