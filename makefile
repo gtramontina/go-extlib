@@ -70,6 +70,5 @@ ifndef help
 	| sort -u \
 	| sed -re "s/^($(.DEFAULT_GOAL))$$/\1 $$(tput setaf 2)*$$(tput sgr0)/" \
 	| sed -e "s/^/  $$(tput setaf 8)make$$(tput sgr0) /"
-	@echo
 endif
 .PHONY: help
