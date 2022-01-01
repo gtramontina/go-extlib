@@ -6,7 +6,7 @@ import (
 	"reflect"
 )
 
-func Calc(subject interface{}) uint64 {
+func Calc(subject any) uint64 {
 	if subject == nil {
 		return 0
 	}

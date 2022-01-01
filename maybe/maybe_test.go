@@ -127,7 +127,7 @@ func TestMaybe(t *testing.T) {
 		})
 
 		t.Run("Some becomes None of the mapped type if the result is null", func(t *testing.T) {
-			assert.Equals(t, maybe.Map(maybe.Some(1), func(it int) interface{} { return nil }), maybe.None[interface{}]())
+			assert.Equals(t, maybe.Map(maybe.Some(1), func(it int) any { return nil }), maybe.None[any]())
 			// assert.Equals(t, maybe.Map(maybe.Some(1), func(it int) *sample { return nil }), maybe.None[*sample]()) // FIXME: pointers
 		})
 
@@ -140,37 +140,37 @@ func TestMaybe(t *testing.T) {
 	t.Run("when flat-mapping", func(t *testing.T) {
 		t.Run("behaves like mapping if result is not a Maybe", func(t *testing.T) {
 			t.Run("Some remains Some but of the mapped type", func(t *testing.T) {
-				assert.Equals(t, maybe.FlatMap[int, int](maybe.Some(1), func(it int) interface{} { return it * 2 }), maybe.Some(2))
-				assert.Equals(t, maybe.FlatMap[int, string](maybe.Some(1), func(it int) interface{} { return fmt.Sprintf("value: %d", it) }), maybe.Some("value: 1"))
-				assert.Equals(t, maybe.FlatMap[int, sample](maybe.Some(1), func(it int) interface{} { return sample{it} }), maybe.Some(sample{1}))
-				assert.Equals(t, maybe.FlatMap[string, int](maybe.Some("1"), func(it string) interface{} { out, _ := strconv.ParseInt(it, 10, 0); return int(out) }), maybe.Some(1))
+				assert.Equals(t, maybe.FlatMap[int, int](maybe.Some(1), func(it int) any { return it * 2 }), maybe.Some(2))
+				assert.Equals(t, maybe.FlatMap[int, string](maybe.Some(1), func(it int) any { return fmt.Sprintf("value: %d", it) }), maybe.Some("value: 1"))
+				assert.Equals(t, maybe.FlatMap[int, sample](maybe.Some(1), func(it int) any { return sample{it} }), maybe.Some(sample{1}))
+				assert.Equals(t, maybe.FlatMap[string, int](maybe.Some("1"), func(it string) any { out, _ := strconv.ParseInt(it, 10, 0); return int(out) }), maybe.Some(1))
 			})
 
 			t.Run("Some becomes None of the mapped type if the result is null", func(t *testing.T) {
-				assert.Equals(t, maybe.FlatMap[int, interface{}](maybe.Some(1), func(it int) interface{} { return nil }), maybe.None[interface{}]())
+				assert.Equals(t, maybe.FlatMap[int, any](maybe.Some(1), func(it int) any { return nil }), maybe.None[any]())
 			})
 
 			t.Run("None always remains None but of the mapped type", func(t *testing.T) {
-				assert.Equals(t, maybe.FlatMap[int, int](maybe.None[int](), func(it int) interface{} { return it * 2 }), maybe.None[int]())
-				assert.Equals(t, maybe.FlatMap[int, *sample](maybe.None[int](), func(it int) interface{} { return nil }), maybe.None[*sample]())
+				assert.Equals(t, maybe.FlatMap[int, int](maybe.None[int](), func(it int) any { return it * 2 }), maybe.None[int]())
+				assert.Equals(t, maybe.FlatMap[int, *sample](maybe.None[int](), func(it int) any { return nil }), maybe.None[*sample]())
 			})
 		})
 
 		t.Run("flattens if result is a Maybe", func(t *testing.T) {
 			t.Run("Some remains Some but of the mapped type", func(t *testing.T) {
-				assert.Equals(t, maybe.FlatMap[int, int](maybe.Some(1), func(it int) interface{} { return maybe.Some(it * 2) }), maybe.Some(2))
-				assert.Equals(t, maybe.FlatMap[int, string](maybe.Some(1), func(it int) interface{} { return maybe.Some(fmt.Sprintf("value: %d", it)) }), maybe.Some("value: 1"))
-				assert.Equals(t, maybe.FlatMap[int, sample](maybe.Some(1), func(it int) interface{} { return maybe.Some(sample{it}) }), maybe.Some(sample{1}))
-				assert.Equals(t, maybe.FlatMap[string, int](maybe.Some("1"), func(it string) interface{} { out, _ := strconv.ParseInt(it, 10, 0); return maybe.Some(int(out)) }), maybe.Some(1))
+				assert.Equals(t, maybe.FlatMap[int, int](maybe.Some(1), func(it int) any { return maybe.Some(it * 2) }), maybe.Some(2))
+				assert.Equals(t, maybe.FlatMap[int, string](maybe.Some(1), func(it int) any { return maybe.Some(fmt.Sprintf("value: %d", it)) }), maybe.Some("value: 1"))
+				assert.Equals(t, maybe.FlatMap[int, sample](maybe.Some(1), func(it int) any { return maybe.Some(sample{it}) }), maybe.Some(sample{1}))
+				assert.Equals(t, maybe.FlatMap[string, int](maybe.Some("1"), func(it string) any { out, _ := strconv.ParseInt(it, 10, 0); return maybe.Some(int(out)) }), maybe.Some(1))
 			})
 
 			t.Run("Some becomes None of the mapped type if the result is null", func(t *testing.T) {
-				assert.Equals(t, maybe.FlatMap[int, interface{}](maybe.Some(1), func(it int) interface{} { return maybe.Of[interface{}](nil) }), maybe.None[interface{}]())
+				assert.Equals(t, maybe.FlatMap[int, any](maybe.Some(1), func(it int) any { return maybe.Of[any](nil) }), maybe.None[any]())
 			})
 
 			t.Run("None always remains None but of the mapped type", func(t *testing.T) {
-				assert.Equals(t, maybe.FlatMap[int, string](maybe.None[int](), func(it int) interface{} { return maybe.Some(fmt.Sprintf("value: %d", it)) }), maybe.None[string]())
-				assert.Equals(t, maybe.FlatMap[int, *sample](maybe.None[int](), func(it int) interface{} { return maybe.Of[*sample](nil) }), maybe.None[*sample]())
+				assert.Equals(t, maybe.FlatMap[int, string](maybe.None[int](), func(it int) any { return maybe.Some(fmt.Sprintf("value: %d", it)) }), maybe.None[string]())
+				assert.Equals(t, maybe.FlatMap[int, *sample](maybe.None[int](), func(it int) any { return maybe.Of[*sample](nil) }), maybe.None[*sample]())
 			})
 		})
 	})
@@ -220,7 +220,7 @@ func TestMaybe(t *testing.T) {
 		t.Run("left identity", func(t *testing.T) {
 			v := 1
 			m := maybe.Some(v)
-			f := func(it int) interface{} { return maybe.Some(it * 2) }
+			f := func(it int) any { return maybe.Some(it * 2) }
 
 			a := maybe.FlatMap[int, int](m, f)
 			b := f(v).(maybe.Maybe[int])
@@ -229,18 +229,18 @@ func TestMaybe(t *testing.T) {
 
 		t.Run("right identity", func(t *testing.T) {
 			m := maybe.Some(1)
-			a := maybe.FlatMap[int, int](m, func(it int) interface{} { return maybe.Some(it) })
+			a := maybe.FlatMap[int, int](m, func(it int) any { return maybe.Some(it) })
 
 			assert.True(t, a.Equals(m))
 		})
 
 		t.Run("associativity", func(t *testing.T) {
 			m := maybe.Some(1)
-			f := func(it int) interface{} { return maybe.Some(it * 2) }
-			g := func(it int) interface{} { return maybe.Some(it + 4) }
+			f := func(it int) any { return maybe.Some(it * 2) }
+			g := func(it int) any { return maybe.Some(it + 4) }
 
 			a := maybe.FlatMap[int, int](maybe.FlatMap[int, int](m, f), g)
-			b := maybe.FlatMap[int, int](m, func(it int) interface{} { return maybe.FlatMap[int, int](f(it).(maybe.Maybe[int]), g) })
+			b := maybe.FlatMap[int, int](m, func(it int) any { return maybe.FlatMap[int, int](f(it).(maybe.Maybe[int]), g) })
 			assert.True(t, a.Equals(b))
 		})
 	})

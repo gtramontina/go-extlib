@@ -50,7 +50,7 @@ func None[Type any]() Maybe[Type] {
 // None[Type] will be returned. Otherwise, Some[Type] is returned. This function
 // is useful when the source or state of the given value is unknown. See also:
 // Some, None.
-func Of[Type any](value interface{}) Maybe[Type] {
+func Of[Type any](value any) Maybe[Type] {
 	if value != nil {
 		return some[Type]{value.(Type)}
 	}
@@ -81,7 +81,7 @@ func Map[From any, To any](maybe Maybe[From], mapper func(From) To) Maybe[To] {
 // FlatMap allows converting given `maybe`'s value into a different type via the
 // `mapper` function. The result of `mapper` is then wrapped with Maybe[Type] if
 // not yet a Maybe[Type], or None[Type] if value is absent. See also: Map.
-func FlatMap[From any, To any](maybe Maybe[From], mapper func(From) interface{}) Maybe[To] {
+func FlatMap[From any, To any](maybe Maybe[From], mapper func(From) any) Maybe[To] {
 	if it, ok := maybe.(some[From]); ok {
 		result := mapper(it.value)
 		if maybeResult, ok := result.(Maybe[To]); ok {

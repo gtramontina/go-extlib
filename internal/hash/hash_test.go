@@ -14,19 +14,19 @@ func TestHash(t *testing.T) {
 		MaxCountScale: maxCountScale(),
 	}
 
-	sameHash := func(a, b interface{}) bool {
+	sameHash := func(a, b any) bool {
 		return hash.Calc(a) == hash.Calc(b)
 	}
 
-	differentHash := func(a, b interface{}) bool {
+	differentHash := func(a, b any) bool {
 		return !sameHash(a, b)
 	}
 
-	sameTypeHashCheck := func(a, b interface{}) bool {
+	sameTypeHashCheck := func(a, b any) bool {
 		return reflect.DeepEqual(a, b) || (sameHash(a, a) && sameHash(b, b) && differentHash(a, b))
 	}
 
-	check := func(fn interface{}) func(*testing.T) {
+	check := func(fn any) func(*testing.T) {
 		return func(t *testing.T) {
 			t.Helper()
 			assert.NoError(t, quick.Check(fn, config))
