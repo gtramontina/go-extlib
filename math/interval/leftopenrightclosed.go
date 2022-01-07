@@ -16,7 +16,7 @@ func (leftopenrightclosed[Real]) seal() (string, string) {
 
 func (i leftopenrightclosed[Real]) List(step Real) []Real {
 	list := []Real{}
-	for n := i.start + 1; n <= i.end; n += step {
+	for n := i.start + step; n <= i.end; n += step {
 		list = append(list, n)
 	}
 	return list
