@@ -3,7 +3,7 @@ package interval
 import (
 	"fmt"
 
-	"github.com/gtramontina/go-extlib/math/interval/internal"
+	"github.com/gtramontina/go-extlib/math/internal"
 )
 
 type open[Real internal.Real] struct {

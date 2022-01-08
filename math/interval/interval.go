@@ -3,7 +3,7 @@ package interval
 import (
 	"fmt"
 
-	"github.com/gtramontina/go-extlib/math/interval/internal"
+	"github.com/gtramontina/go-extlib/math/internal"
 )
 
 // Interval is a set of real numbers that contains all real numbers lying
