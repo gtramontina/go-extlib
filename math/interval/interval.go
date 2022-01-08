@@ -13,6 +13,12 @@ import (
 //	• LeftClosedRightOpen: [𝑎,𝑏) = { 𝑥 ∈ ℝ | 𝑎 ≤ 𝑥 < 𝑏 }
 //	• LeftOpenRightClosed: (𝑎,𝑏] = { 𝑥 ∈ ℝ | 𝑎 < 𝑥 ≤ 𝑏 }
 //	• Closed:              [𝑎,𝑏] = { 𝑥 ∈ ℝ | 𝑎 ≤ 𝑥 ≤ 𝑏 }
+//
+//	Graphical Representation:
+//	• Open:                𝑎 ○————○ 𝑏
+//	• LeftClosedRightOpen: 𝑎 ●————○ 𝑏
+//	• LeftOpenRightClosed: 𝑎 ○————● 𝑏
+//	• Closed:              𝑎 ●————● 𝑏
 type Interval[Real internal.Real] interface {
 	fmt.Stringer
 
@@ -28,7 +34,8 @@ type Interval[Real internal.Real] interface {
 }
 
 // Open creates an open interval, where both start and end are excluded.
-//	Notation: (𝑎,𝑏) = { 𝑥 ∈ ℝ | 𝑎 < 𝑥 < 𝑏 }
+//	• Graphical: 𝑎 ○————○ 𝑏
+//	• Notation:  (𝑎,𝑏) = { 𝑥 ∈ ℝ | 𝑎 < 𝑥 < 𝑏 }
 // See also: LeftClosedRightOpen, LeftOpenRightClosed, Closed.
 func Open[Real internal.Real](start, end Real) Interval[Real] {
 	return open[Real]{start: start, end: end}
@@ -36,7 +43,8 @@ func Open[Real internal.Real](start, end Real) Interval[Real] {
 
 // LeftClosedRightOpen creates a left-closed, right-open interval, where start
 // is included and end is excluded.
-//	Notation: [𝑎,𝑏) = { 𝑥 ∈ ℝ | 𝑎 ≤ 𝑥 < 𝑏 }
+//	• Graphical: 𝑎 ●————○ 𝑏
+//	• Notation:  [𝑎,𝑏) = { 𝑥 ∈ ℝ | 𝑎 ≤ 𝑥 < 𝑏 }
 // See also: Open, LeftOpenRightClosed, Closed.
 func LeftClosedRightOpen[Real internal.Real](start, end Real) Interval[Real] {
 	return leftclosedrightopen[Real]{start: start, end: end}
@@ -44,14 +52,16 @@ func LeftClosedRightOpen[Real internal.Real](start, end Real) Interval[Real] {
 
 // LeftOpenRightClosed creates a left-open, right-closed interval, where start
 // is excluded and end is included.
-//	Notation: (𝑎,𝑏] = { 𝑥 ∈ ℝ | 𝑎 < 𝑥 ≤ 𝑏 }
+//	• Graphical: 𝑎 ○————● 𝑏
+//	• Notation:  (𝑎,𝑏] = { 𝑥 ∈ ℝ | 𝑎 < 𝑥 ≤ 𝑏 }
 // See also: Open, LeftClosedRightOpen, Closed.
 func LeftOpenRightClosed[Real internal.Real](start, end Real) Interval[Real] {
 	return leftopenrightclosed[Real]{start: start, end: end}
 }
 
 // Closed creates a closed interval, where both start and end are included.
-//	Notation: [𝑎,𝑏] = { 𝑥 ∈ ℝ | 𝑎 ≤ 𝑥 ≤ 𝑏 }
+//	• Graphical: 𝑎 ●————● 𝑏
+//	• Notation:  [𝑎,𝑏] = { 𝑥 ∈ ℝ | 𝑎 ≤ 𝑥 ≤ 𝑏 }
 // See also: Open, LeftClosedRightOpen, LeftOpenRightClosed.
 func Closed[Real internal.Real](start, end Real) Interval[Real] {
 	return closed[Real]{start: start, end: end}
