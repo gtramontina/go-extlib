@@ -22,6 +22,9 @@ type Interval[Real internal.Real] interface {
 	// List represents this Interval as an ordered array, from start to end,
 	// containing all numbers distanced by a given step size.
 	List(Real) []Real
+
+	// Contains checks if this interval contains the given number.
+	Contains(Real) bool
 }
 
 // Open creates an open interval, where both start and end are excluded.

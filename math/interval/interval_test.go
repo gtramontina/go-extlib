@@ -1,6 +1,7 @@
 package interval_test
 
 import (
+	"math"
 	"testing"
 
 	"github.com/gtramontina/go-extlib/internal/assert"
@@ -31,6 +32,32 @@ func TestInterval(t *testing.T) {
 			assert.Eq(t, interval.Open[uint](1, 5).String(), "Interval(1,5)")
 			assert.Eq(t, interval.Open[float32](1.1, 5.5).String(), "Interval(1.1,5.5)")
 		})
+
+		t.Run("can tell whether it contains a given number", func(t *testing.T) {
+			assert.False(t, interval.Open(1, 4).Contains(0))
+			assert.False(t, interval.Open(1, 4).Contains(1))
+			assert.True(t, interval.Open(1, 4).Contains(2))
+			assert.True(t, interval.Open(1, 4).Contains(3))
+			assert.False(t, interval.Open(1, 4).Contains(4))
+			assert.False(t, interval.Open(1, 4).Contains(5))
+
+			assert.False(t, interval.Open[uint](1, 4).Contains(0))
+			assert.False(t, interval.Open[uint](1, 4).Contains(1))
+			assert.True(t, interval.Open[uint](1, 4).Contains(2))
+			assert.True(t, interval.Open[uint](1, 4).Contains(3))
+			assert.False(t, interval.Open[uint](1, 4).Contains(4))
+			assert.False(t, interval.Open[uint](1, 4).Contains(5))
+
+			assert.False(t, interval.Open[float32](0, 3).Contains(-1))
+			assert.False(t, interval.Open[float32](0, 3).Contains(-math.SmallestNonzeroFloat32))
+			assert.False(t, interval.Open[float32](0, 3).Contains(0))
+			assert.True(t, interval.Open[float32](0, 3).Contains(math.SmallestNonzeroFloat32))
+			assert.True(t, interval.Open[float32](0, 3).Contains(1.5))
+			assert.True(t, interval.Open[float32](0, 3).Contains(2.99999))
+			assert.False(t, interval.Open[float32](0, 3).Contains(3))
+			assert.False(t, interval.Open[float32](0, 3).Contains(3.00001))
+			assert.False(t, interval.Open[float32](0, 3).Contains(4))
+		})
 	})
 
 	t.Run("left closed right open", func(t *testing.T) {
@@ -56,6 +83,32 @@ func TestInterval(t *testing.T) {
 			assert.Eq(t, interval.LeftClosedRightOpen[uint](1, 5).String(), "Interval[1,5)")
 			assert.Eq(t, interval.LeftClosedRightOpen[float32](1.1, 5.5).String(), "Interval[1.1,5.5)")
 		})
+
+		t.Run("can tell whether it contains a given number", func(t *testing.T) {
+			assert.False(t, interval.LeftClosedRightOpen(1, 4).Contains(0))
+			assert.True(t, interval.LeftClosedRightOpen(1, 4).Contains(1))
+			assert.True(t, interval.LeftClosedRightOpen(1, 4).Contains(2))
+			assert.True(t, interval.LeftClosedRightOpen(1, 4).Contains(3))
+			assert.False(t, interval.LeftClosedRightOpen(1, 4).Contains(4))
+			assert.False(t, interval.LeftClosedRightOpen(1, 4).Contains(5))
+
+			assert.False(t, interval.LeftClosedRightOpen[uint](1, 4).Contains(0))
+			assert.True(t, interval.LeftClosedRightOpen[uint](1, 4).Contains(1))
+			assert.True(t, interval.LeftClosedRightOpen[uint](1, 4).Contains(2))
+			assert.True(t, interval.LeftClosedRightOpen[uint](1, 4).Contains(3))
+			assert.False(t, interval.LeftClosedRightOpen[uint](1, 4).Contains(4))
+			assert.False(t, interval.LeftClosedRightOpen[uint](1, 4).Contains(5))
+
+			assert.False(t, interval.LeftClosedRightOpen[float32](0, 3).Contains(-1))
+			assert.False(t, interval.LeftClosedRightOpen[float32](0, 3).Contains(-math.SmallestNonzeroFloat32))
+			assert.True(t, interval.LeftClosedRightOpen[float32](0, 3).Contains(0))
+			assert.True(t, interval.LeftClosedRightOpen[float32](0, 3).Contains(math.SmallestNonzeroFloat32))
+			assert.True(t, interval.LeftClosedRightOpen[float32](0, 3).Contains(1.5))
+			assert.True(t, interval.LeftClosedRightOpen[float32](0, 3).Contains(2.99999))
+			assert.False(t, interval.LeftClosedRightOpen[float32](0, 3).Contains(3))
+			assert.False(t, interval.LeftClosedRightOpen[float32](0, 3).Contains(3.00001))
+			assert.False(t, interval.LeftClosedRightOpen[float32](0, 3).Contains(4))
+		})
 	})
 
 	t.Run("left open right closed", func(t *testing.T) {
@@ -80,6 +133,32 @@ func TestInterval(t *testing.T) {
 			assert.Eq(t, interval.LeftOpenRightClosed(1, 5).String(), "Interval(1,5]")
 			assert.Eq(t, interval.LeftOpenRightClosed[uint](1, 5).String(), "Interval(1,5]")
 			assert.Eq(t, interval.LeftOpenRightClosed[float32](1.1, 5.5).String(), "Interval(1.1,5.5]")
+		})
+
+		t.Run("can tell whether it contains a given number", func(t *testing.T) {
+			assert.False(t, interval.LeftOpenRightClosed(1, 4).Contains(0))
+			assert.False(t, interval.LeftOpenRightClosed(1, 4).Contains(1))
+			assert.True(t, interval.LeftOpenRightClosed(1, 4).Contains(2))
+			assert.True(t, interval.LeftOpenRightClosed(1, 4).Contains(3))
+			assert.True(t, interval.LeftOpenRightClosed(1, 4).Contains(4))
+			assert.False(t, interval.LeftOpenRightClosed(1, 4).Contains(5))
+
+			assert.False(t, interval.LeftOpenRightClosed[uint](1, 4).Contains(0))
+			assert.False(t, interval.LeftOpenRightClosed[uint](1, 4).Contains(1))
+			assert.True(t, interval.LeftOpenRightClosed[uint](1, 4).Contains(2))
+			assert.True(t, interval.LeftOpenRightClosed[uint](1, 4).Contains(3))
+			assert.True(t, interval.LeftOpenRightClosed[uint](1, 4).Contains(4))
+			assert.False(t, interval.LeftOpenRightClosed[uint](1, 4).Contains(5))
+
+			assert.False(t, interval.LeftOpenRightClosed[float32](0, 3).Contains(-1))
+			assert.False(t, interval.LeftOpenRightClosed[float32](0, 3).Contains(-math.SmallestNonzeroFloat32))
+			assert.False(t, interval.LeftOpenRightClosed[float32](0, 3).Contains(0))
+			assert.True(t, interval.LeftOpenRightClosed[float32](0, 3).Contains(math.SmallestNonzeroFloat32))
+			assert.True(t, interval.LeftOpenRightClosed[float32](0, 3).Contains(1.5))
+			assert.True(t, interval.LeftOpenRightClosed[float32](0, 3).Contains(2.99999))
+			assert.True(t, interval.LeftOpenRightClosed[float32](0, 3).Contains(3))
+			assert.False(t, interval.LeftOpenRightClosed[float32](0, 3).Contains(3.00001))
+			assert.False(t, interval.LeftOpenRightClosed[float32](0, 3).Contains(4))
 		})
 	})
 
@@ -111,6 +190,32 @@ func TestInterval(t *testing.T) {
 			assert.Eq(t, interval.Closed(1, 5).String(), "Interval[1,5]")
 			assert.Eq(t, interval.Closed[uint](1, 5).String(), "Interval[1,5]")
 			assert.Eq(t, interval.Closed[float32](1.1, 5.5).String(), "Interval[1.1,5.5]")
+		})
+
+		t.Run("can tell whether it contains a given number", func(t *testing.T) {
+			assert.False(t, interval.Closed(1, 4).Contains(0))
+			assert.True(t, interval.Closed(1, 4).Contains(1))
+			assert.True(t, interval.Closed(1, 4).Contains(2))
+			assert.True(t, interval.Closed(1, 4).Contains(3))
+			assert.True(t, interval.Closed(1, 4).Contains(4))
+			assert.False(t, interval.Closed(1, 4).Contains(5))
+
+			assert.False(t, interval.Closed[uint](1, 4).Contains(0))
+			assert.True(t, interval.Closed[uint](1, 4).Contains(1))
+			assert.True(t, interval.Closed[uint](1, 4).Contains(2))
+			assert.True(t, interval.Closed[uint](1, 4).Contains(3))
+			assert.True(t, interval.Closed[uint](1, 4).Contains(4))
+			assert.False(t, interval.Closed[uint](1, 4).Contains(5))
+
+			assert.False(t, interval.Closed[float32](0, 3).Contains(-1))
+			assert.False(t, interval.Closed[float32](0, 3).Contains(-math.SmallestNonzeroFloat32))
+			assert.True(t, interval.Closed[float32](0, 3).Contains(0))
+			assert.True(t, interval.Closed[float32](0, 3).Contains(math.SmallestNonzeroFloat32))
+			assert.True(t, interval.Closed[float32](0, 3).Contains(1.5))
+			assert.True(t, interval.Closed[float32](0, 3).Contains(2.99999))
+			assert.True(t, interval.Closed[float32](0, 3).Contains(3))
+			assert.False(t, interval.Closed[float32](0, 3).Contains(3.00001))
+			assert.False(t, interval.Closed[float32](0, 3).Contains(4))
 		})
 	})
 }

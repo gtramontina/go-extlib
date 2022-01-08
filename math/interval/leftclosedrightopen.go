@@ -22,6 +22,10 @@ func (i leftclosedrightopen[Real]) List(step Real) []Real {
 	return list
 }
 
+func (i leftclosedrightopen[Real]) Contains(n Real) bool {
+	return n >= i.start && n < i.end
+}
+
 func (i leftclosedrightopen[Real]) String() string {
 	notationStart, notationEnd := i.seal()
 	return fmt.Sprintf("Interval%s%v,%v%s", notationStart, i.start, i.end, notationEnd)
