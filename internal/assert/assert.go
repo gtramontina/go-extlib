@@ -93,6 +93,17 @@ func NotEq[Type comparable](t *testing.T, actual Type, expected Type) {
 	})
 }
 
+// Nil checks whether the given value is nil. It fails when it is not nil.
+func Nil(t *testing.T, x any) {
+	t.Helper()
+	assert(t, x == nil, func() string {
+		return strings.Join([]string{
+			red("Assertion failed: expected the given value to be nil."), "",
+			bold(blue("Got: ")), fmt.Sprintf("%+v", x), "",
+		}, "\n")
+	})
+}
+
 // NoError checks whether err is nil. It fails when it is not nil.
 func NoError(t *testing.T, err error) {
 	t.Helper()
