@@ -22,8 +22,6 @@ func TestMax(t *testing.T) {
 	assert.Eq(t, math.Max[int](+0, -0), +0)
 	assert.Eq(t, math.Max[int](-0, +0), +0)
 	assert.Eq(t, math.Max[int](-0, -0), -0)
-	assert.Eq(t, math.Max[int](1, int(Inf(+1))), int(Inf(+1)))
-	assert.Eq(t, math.Max[int](int(Inf(+1)), 1), int(Inf(+1)))
 
 	assert.Eq(t, math.Max[float64](0, 0), 0)
 	assert.Eq(t, math.Max[float64](0, 1), 1)
