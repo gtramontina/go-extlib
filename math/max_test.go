@@ -5,8 +5,8 @@ import (
 
 	m "math"
 
-	"github.com/gtramontina/go-extlib/internal/assert"
 	"github.com/gtramontina/go-extlib/math"
+	"github.com/gtramontina/go-extlib/testing/assert"
 )
 
 func TestMax(t *testing.T) {

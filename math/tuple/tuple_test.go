@@ -3,8 +3,8 @@ package tuple_test
 import (
 	"testing"
 
-	"github.com/gtramontina/go-extlib/internal/assert"
 	"github.com/gtramontina/go-extlib/math/tuple"
+	"github.com/gtramontina/go-extlib/testing/assert"
 )
 
 func TestTuple(t *testing.T) {

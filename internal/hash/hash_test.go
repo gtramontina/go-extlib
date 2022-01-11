@@ -3,8 +3,8 @@ package hash_test
 import (
 	"testing"
 
-	"github.com/gtramontina/go-extlib/internal/assert"
 	"github.com/gtramontina/go-extlib/internal/hash"
+	"github.com/gtramontina/go-extlib/testing/assert"
 )
 
 func TestHash(t *testing.T) {

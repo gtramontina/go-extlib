@@ -4,8 +4,8 @@ import (
 	m "math"
 	"testing"
 
-	"github.com/gtramontina/go-extlib/internal/assert"
 	"github.com/gtramontina/go-extlib/math"
+	"github.com/gtramontina/go-extlib/testing/assert"
 )
 
 func TestMin(t *testing.T) {

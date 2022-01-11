@@ -4,8 +4,8 @@ import (
 	"math"
 	"testing"
 
-	"github.com/gtramontina/go-extlib/internal/assert"
 	"github.com/gtramontina/go-extlib/math/interval"
+	"github.com/gtramontina/go-extlib/testing/assert"
 )
 
 func TestInterval(t *testing.T) {

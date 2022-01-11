@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/gtramontina/go-extlib/internal/assert"
 	"github.com/gtramontina/go-extlib/maybe"
 	"github.com/gtramontina/go-extlib/result"
+	"github.com/gtramontina/go-extlib/testing/assert"
 )
 
 func TestResult(t *testing.T) {

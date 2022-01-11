@@ -5,8 +5,8 @@ import (
 	"testing"
 
 	"github.com/gtramontina/go-extlib/either"
-	"github.com/gtramontina/go-extlib/internal/assert"
 	"github.com/gtramontina/go-extlib/maybe"
+	"github.com/gtramontina/go-extlib/testing/assert"
 )
 
 func TestEither(t *testing.T) {

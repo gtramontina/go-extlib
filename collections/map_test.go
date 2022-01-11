@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/gtramontina/go-extlib/collections"
-	"github.com/gtramontina/go-extlib/internal/assert"
+	"github.com/gtramontina/go-extlib/testing/assert"
 )
 
 func TestMap(t *testing.T) {

@@ -4,9 +4,9 @@ import (
 	"testing"
 
 	"github.com/gtramontina/go-extlib/hashmap"
-	"github.com/gtramontina/go-extlib/internal/assert"
 	"github.com/gtramontina/go-extlib/maybe"
 	"github.com/gtramontina/go-extlib/set"
+	"github.com/gtramontina/go-extlib/testing/assert"
 )
 
 func TestHashMap(t *testing.T) {

@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/gtramontina/go-extlib/collections"
-	"github.com/gtramontina/go-extlib/internal/assert"
+	"github.com/gtramontina/go-extlib/testing/assert"
 )
 
 func TestChunk(t *testing.T) {

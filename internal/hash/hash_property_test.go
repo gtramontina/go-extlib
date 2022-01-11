@@ -7,8 +7,8 @@ import (
 	"testing"
 	"testing/quick"
 
-	"github.com/gtramontina/go-extlib/internal/assert"
 	"github.com/gtramontina/go-extlib/internal/hash"
+	"github.com/gtramontina/go-extlib/testing/assert"
 )
 
 // maxCountScale reads the `MAX_COUNT_SCALE` environment variable and parses it
