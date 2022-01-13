@@ -4,6 +4,7 @@
 </h1>
 
 <sup><b>⚠️ Note:</b> This is still an <em>experiment</em>.</sup>
+<a href="https://pkg.go.dev/github.com/gtramontina/go-extlib"><img src="https://pkg.go.dev/badge/github.com/gtramontina/go-extlib.svg" alt="Go Reference" align="right"></a>
 <a href="https://github.com/gtramontina/go-extlib/actions/workflows/ci.yml"><img alt="Build Badge" src="https://github.com/gtramontina/go-collections/actions/workflows/ci.yml/badge.svg" align="right"></a>
 
 ## Motivation
