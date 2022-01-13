@@ -9,7 +9,7 @@
 
 ## Motivation
 
-My main motivation was to try out generics in Go. I jumped straight into the usual suspects: `Filter` and `Map`. When testing these, I saw the need for assertion functions: another opportunity to exercise some more generics! It lives as an [internal](https://github.com/gtramontina/go-extlib/blob/main/internal/assert/assert.go) package at the moment.
+My main motivation was to try out generics in Go. I jumped straight into the usual suspects: `Filter` and `Map`. When testing these, I saw the need for assertion functions: another opportunity to exercise some more generics! It is now part of this ext-lib under lives as an [testing/assert](https://github.com/gtramontina/go-extlib/blob/main/testing/assert).
 
 Later I thought it would be nice to implement `Set`, and then `HashMap`, with which I got carried away and ended up implementing a somewhat naïve [hasher](https://github.com/gtramontina/go-extlib/blob/main/internal/hash/hash.go) (you can read more on the rationale on [this commit](https://github.com/gtramontina/go-extlib/commit/808ac8236c433587c4dc2f85479c1189a5df6010)).
 
