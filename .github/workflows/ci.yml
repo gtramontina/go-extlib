@@ -1,4 +1,4 @@
-name: CI
+name: "🤖 Pipeline"
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  Build:
 
     runs-on: ubuntu-latest
 
