@@ -59,6 +59,10 @@ pre-commit: | $(pre-reqs)
 	@gotestsum -- -cover ./...
 .PHONY: pre-commit
 
+tag-release:
+	@[ -z $$(git tag -l $$(ccv)) ] && (git tag $$(ccv) && git push --tags) || echo "Latest version already tagged!"
+.PHONY: tag-release
+
 # --
 
 help:

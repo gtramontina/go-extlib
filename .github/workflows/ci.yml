@@ -17,5 +17,7 @@ jobs:
         run: make install
       - name: 🧑‍🔬 Test
         run: make test
+      - name: 🏷 Release
+        run: make tag-release
         env:
           MAX_COUNT_SCALE: 2
