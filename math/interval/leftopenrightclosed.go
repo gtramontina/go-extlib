@@ -3,10 +3,10 @@ package interval
 import (
 	"fmt"
 
-	"github.com/gtramontina/go-extlib/math/internal"
+	"github.com/gtramontina/go-extlib/math/constraints"
 )
 
-type leftopenrightclosed[Real internal.Real] struct {
+type leftopenrightclosed[Real constraints.Real] struct {
 	start, end Real
 }
 
