@@ -89,6 +89,7 @@ func Match[L any, R any, Out any](either Either[L, R], whenLeft func(L) Out, whe
 	if either.IsLeft() {
 		return whenLeft(either.(left[L, R]).value)
 	}
+
 	return whenRight(either.(right[L, R]).value)
 }
 
@@ -99,6 +100,7 @@ func Map[T any, Out any](either Either[T, T], mapper func(T) Out) Either[Out, Ou
 	if either.IsLeft() {
 		return Left[Out, Out](mapper(either.(left[T, T]).value))
 	}
+
 	return Right[Out, Out](mapper(either.(right[T, T]).value))
 }
 
@@ -109,6 +111,7 @@ func MapLeft[L any, R any, Out any](either Either[L, R], mapper func(L) Out) Eit
 	if either.IsLeft() {
 		return Left[Out, R](mapper(either.(left[L, R]).value))
 	}
+
 	return Right[Out, R](either.(right[L, R]).value)
 }
 
@@ -119,5 +122,6 @@ func MapRight[L any, R any, Out any](either Either[L, R], mapper func(R) Out) Ei
 	if either.IsLeft() {
 		return Left[L, Out](either.(left[L, R]).value)
 	}
+
 	return Right[L, Out](mapper(either.(right[L, R]).value))
 }

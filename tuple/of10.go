@@ -7,7 +7,9 @@ package tuple
 type OfTen[A, B, C, D, E, F, G, H, I, J any] struct{ tuple }
 
 // Of10 creates a OfTen 10-tuple.
-func Of10[A, B, C, D, E, F, G, H, I, J any](a A, b B, c C, d D, e E, f F, g G, h H, i I, j J) OfTen[A, B, C, D, E, F, G, H, I, J] {
+func Of10[A, B, C, D, E, F, G, H, I, J any](
+	a A, b B, c C, d D, e E, f F, g G, h H, i I, j J,
+) OfTen[A, B, C, D, E, F, G, H, I, J] {
 	return OfTen[A, B, C, D, E, F, G, H, I, J]{tuple{[]any{a, b, c, d, e, f, g, h, i, j}}}
 }
 

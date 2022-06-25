@@ -21,6 +21,7 @@ func (r right[L, R]) Equals(other Either[L, R]) bool {
 
 func (r right[L, R]) String() string {
 	kind := reflect.TypeOf(r.value).String()
+
 	return r.seal() + "[" + kind + "](" + fmt.Sprintf("%+v", r.value) + ")"
 }
 

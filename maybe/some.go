@@ -17,11 +17,13 @@ func (s some[Type]) Equals(other Maybe[Type]) bool {
 	if otherSome, ok := other.(some[Type]); ok {
 		return reflect.DeepEqual(s.value, otherSome.value)
 	}
+
 	return false
 }
 
 func (s some[Type]) String() string {
 	kind := reflect.TypeOf(s.value).String()
+
 	return s.seal() + "[" + kind + "](" + fmt.Sprintf("%+v", s.value) + ")"
 }
 

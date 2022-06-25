@@ -6,13 +6,16 @@ import (
 	"reflect"
 )
 
+const prime = 31
+
+//nolint:funlen,cyclop // need to cover all types
 func Calc(subject any) uint64 {
 	if subject == nil {
 		return 0
 	}
 
 	value := reflect.ValueOf(subject)
-	switch value.Kind() {
+	switch value.Kind() { //nolint:exhaustive // covering with a default panic
 	case reflect.Bool:
 		return hash(fmt.Sprintf("bool:%v", value.Bool()))
 	case reflect.Int:
@@ -67,46 +70,52 @@ func Calc(subject any) uint64 {
 func hashArray(value reflect.Value) uint64 {
 	h := hash(fmt.Sprintf("array:%s", value.Type().Elem()))
 	for i := 0; i < value.Len(); i++ {
-		h = 31*h + Calc(value.Index(i).Interface())
+		h = prime*h + Calc(value.Index(i).Interface())
 	}
+
 	return h
 }
 
 func hashMap(value reflect.Value) uint64 {
-	h := hash(fmt.Sprintf("map:%s:%s", value.Type().Key(), value.Type().Elem()))
+	calculatedHash := hash(fmt.Sprintf("map:%s:%s", value.Type().Key(), value.Type().Elem()))
 	iter := value.MapRange()
+
 	for iter.Next() {
 		pairH := Calc(iter.Key().Interface())
-		pairH = 31*pairH + Calc(iter.Value().Interface())
-		h ^= pairH
+		pairH = prime*pairH + Calc(iter.Value().Interface())
+		calculatedHash ^= pairH
 	}
-	return h
+
+	return calculatedHash
 }
 
 func hashSlice(value reflect.Value) uint64 {
 	h := hash(fmt.Sprintf("slice:%s", value.Type().Elem()))
 	for i := 0; i < value.Len(); i++ {
-		h = 31*h + Calc(value.Index(i).Interface())
+		h = prime*h + Calc(value.Index(i).Interface())
 	}
+
 	return h
 }
 
 func hashStruct(value reflect.Value) uint64 {
-	h := hash(fmt.Sprintf("struct:%s", value.Type()))
+	calculatedHash := hash(fmt.Sprintf("struct:%s", value.Type()))
 
 	addressableCopy := reflect.New(value.Type()).Elem()
 	addressableCopy.Set(value)
+
 	for i := 0; i < value.NumField(); i++ {
 		field := addressableCopy.Field(i)
 		field = reflect.NewAt(field.Type(), field.Addr().UnsafePointer()).Elem()
-		h = 31*h + Calc(field.Interface())
+		calculatedHash = prime*calculatedHash + Calc(field.Interface())
 	}
 
-	return h
+	return calculatedHash
 }
 
 func hash(s string) uint64 {
 	h := fnv.New64()
 	_, _ = h.Write([]byte(s)) // fnv.sum64 never errors
+
 	return h.Sum64()
 }

@@ -43,7 +43,7 @@ bench: | $(pre-reqs)
 lint: | $(pre-reqs)
 	@gofmt -w $$({ git ls-files -- '*.go'; git ls-files --others --exclude-standard -- '*.go'; })
 	@goimports -w $$({ git ls-files -- '*.go'; git ls-files --others --exclude-standard -- '*.go'; })
-	@golangci-lint run
+	@docker run --rm -v $(PWD):/app -w /app golangci/golangci-lint:v1.46.2 golangci-lint run
 .PHONY: lint
 
 clobber:

@@ -5,6 +5,7 @@ package collections
 // which the predicate returns true.
 func Filter[Type any](collection []Type, predicate func(Type) bool) []Type {
 	filtered := []Type{}
+
 	for _, element := range collection {
 		if predicate(element) {
 			filtered = append(filtered, element)

@@ -21,6 +21,7 @@ func (o ok[Type]) Equals(other Result[Type]) bool {
 
 func (o ok[Type]) String() string {
 	kind := reflect.TypeOf(o.value).String()
+
 	return o.seal() + "[" + kind + "](" + fmt.Sprintf("%+v", o.value) + ")"
 }
 

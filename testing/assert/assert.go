@@ -126,6 +126,7 @@ func Panic[Type any](t *testing.T, fn func(), expectedPanic Type) {
 
 func assert(t *testing.T, truth bool, lazyMessage func() string) {
 	t.Helper()
+
 	if !truth {
 		message := lazyMessage()
 		if len(message) == 0 {
@@ -144,6 +145,7 @@ func refute(t *testing.T, truth bool, lazyMessage func() string) {
 
 func assertPanic[Type any](t *testing.T, expectedPanic Type) {
 	t.Helper()
+
 	actualPanic := recover()
 	assert(t, actualPanic != nil, func() string {
 		return red("Assertion failed: expected function to panic, but it didn't.")

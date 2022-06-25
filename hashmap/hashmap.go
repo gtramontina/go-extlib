@@ -56,6 +56,7 @@ func (m HashMap[Key, Value]) Put(key Key, value Value) HashMap[Key, Value] {
 func (m HashMap[Key, Value]) Remove(key Key) HashMap[Key, Value] {
 	newEntries := make(map[uint64]Entry[Key, Value], len(m.entries)+1)
 	hashedKey := hash.Calc(key)
+
 	for h, entry := range m.entries {
 		if h != hashedKey {
 			newEntries[h] = entry
@@ -66,7 +67,7 @@ func (m HashMap[Key, Value]) Remove(key Key) HashMap[Key, Value] {
 }
 
 // MustGet retrieves the Value for the given Key. Panics when key is not found.
-// TODO: implement Maybe[Value]
+// TODO: implement Maybe[Value].
 func (m HashMap[Key, Value]) MustGet(key Key) Value {
 	entry, ok := m.entries[hash.Calc(key)]
 	if !ok {

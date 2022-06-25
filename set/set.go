@@ -30,6 +30,7 @@ func New[Type any](members ...Type) Set[Type] {
 func (s Set[Type]) Add(newMember Type) Set[Type] {
 	newMembers := make(map[uint64]Type, len(s.members)+1)
 	newMembers[hash.Calc(newMember)] = newMember
+
 	for h, member := range s.members {
 		newMembers[h] = member
 	}
@@ -42,6 +43,7 @@ func (s Set[Type]) Add(newMember Type) Set[Type] {
 func (s Set[Type]) Remove(existingMember Type) Set[Type] {
 	newMembers := make(map[uint64]Type, len(s.members)-1)
 	existingMemberHash := hash.Calc(existingMember)
+
 	for h, member := range s.members {
 		if h != existingMemberHash {
 			newMembers[h] = member
@@ -82,7 +84,7 @@ func (s Set[Type]) Contains(member Type) bool {
 }
 
 // SuperSetOf checks whether this Set is a super set of the given Set.
-// A ⊇ B
+// A ⊇ B.
 func (s Set[Type]) SuperSetOf(other Set[Type]) bool {
 	for h := range other.members {
 		if _, contains := s.members[h]; !contains {
@@ -103,9 +105,11 @@ func (s Set[Type]) SuperSetOf(other Set[Type]) bool {
 //	      └─────────────┘B
 func (s Set[Type]) Union(other Set[Type]) Set[Type] {
 	newMembers := make(map[uint64]Type, len(s.members)+len(other.members))
+
 	for h, member := range other.members {
 		newMembers[h] = member
 	}
+
 	for h, member := range s.members {
 		newMembers[h] = member
 	}
@@ -123,6 +127,7 @@ func (s Set[Type]) Union(other Set[Type]) Set[Type] {
 //	      └─────────────┘B
 func (s Set[Type]) Intersection(other Set[Type]) Set[Type] {
 	newMembers := map[uint64]Type{}
+
 	for h, otherMember := range other.members {
 		if _, contains := s.members[h]; contains {
 			newMembers[h] = otherMember
@@ -142,6 +147,7 @@ func (s Set[Type]) Intersection(other Set[Type]) Set[Type] {
 //	      └─────────────┘B
 func (s Set[Type]) Difference(other Set[Type]) Set[Type] {
 	newMembers := map[uint64]Type{}
+
 	for h, member := range s.members {
 		if _, contains := other.members[h]; !contains {
 			newMembers[h] = member
@@ -169,6 +175,7 @@ func (s Set[Type]) SymmetricDifference(other Set[Type]) Set[Type] {
 // true.
 func (s Set[Type]) Filter(predicate func(Type) bool) Set[Type] {
 	newMembers := make(map[uint64]Type, len(s.members))
+
 	for h, member := range s.members {
 		if predicate(member) {
 			newMembers[h] = member
@@ -190,5 +197,6 @@ func (s Set[Type]) String() string {
 	})
 
 	kind := reflect.TypeOf(s.members).Elem().String()
+
 	return "Set(" + kind + "){" + strings.Join(members, ", ") + "}"
 }

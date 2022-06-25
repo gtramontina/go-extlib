@@ -8,6 +8,7 @@ func (none[Type]) seal() string {
 
 func (none[Type]) Equals(other Maybe[Type]) bool {
 	_, ok := other.(none[Type])
+
 	return ok
 }
 

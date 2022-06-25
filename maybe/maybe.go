@@ -54,6 +54,7 @@ func Of[Type any](value any) Maybe[Type] {
 	if value != nil {
 		return some[Type]{value.(Type)}
 	}
+
 	return none[Type]{}
 }
 
@@ -65,6 +66,7 @@ func Match[From any, To any](maybe Maybe[From], whenSome func(From) To, whenNone
 	if it, ok := maybe.(some[From]); ok {
 		return whenSome(it.value)
 	}
+
 	return whenNone()
 }
 
@@ -75,6 +77,7 @@ func Map[From any, To any](maybe Maybe[From], mapper func(From) To) Maybe[To] {
 	if it, ok := maybe.(some[From]); ok {
 		return Of[To](mapper(it.value))
 	}
+
 	return None[To]()
 }
 
@@ -87,7 +90,9 @@ func FlatMap[From any, To any](maybe Maybe[From], mapper func(From) any) Maybe[T
 		if maybeResult, ok := result.(Maybe[To]); ok {
 			return maybeResult
 		}
+
 		return Of[To](result)
 	}
+
 	return None[To]()
 }

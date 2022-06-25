@@ -1,18 +1,17 @@
 package math_test
 
 import (
-	"testing"
-
 	m "math"
+	"testing"
 
 	"github.com/gtramontina/go-extlib/math"
 	"github.com/gtramontina/go-extlib/testing/assert"
 )
 
 func TestMax(t *testing.T) {
-	var Inf = m.Inf
-	var NaN = m.NaN
-	var IsNaN = m.IsNaN
+	Inf := m.Inf
+	NaN := m.NaN
+	IsNaN := m.IsNaN
 
 	assert.Eq(t, math.Max[int](0, 0), 0)
 	assert.Eq(t, math.Max[int](0, 1), 1)

@@ -70,6 +70,7 @@ func Of[Type any](value Type, err error) Result[Type] {
 	if err != nil {
 		return Err[Type](err)
 	}
+
 	return Ok(value)
 }
 
@@ -81,6 +82,7 @@ func Match[Type any, Out any](result Result[Type], whenOk func(Type) Out, whenEr
 	if result.IsOk() {
 		return whenOk(result.(ok[Type]).value)
 	}
+
 	return whenErr(result.(err[Type]).value)
 }
 
@@ -90,6 +92,7 @@ func Map[Type any, Out any](result Result[Type], mapper func(Type) Out) Result[O
 	if result.IsOk() {
 		return Ok[Out](mapper(result.(ok[Type]).value))
 	}
+
 	return Err[Out](result.(err[Type]).value)
 }
 
@@ -102,8 +105,10 @@ func FlatMap[From any, To any](result Result[From], mapper func(From) any) Resul
 		if mappedToResult, ok := mapped.(Result[To]); ok {
 			return mappedToResult
 		}
+
 		return Ok[To](mapped.(To))
 	}
+
 	return Err[To](result.(err[From]).value)
 }
 
@@ -113,6 +118,7 @@ func MapErr[Type any](result Result[Type], mapper func(error) error) Result[Type
 	if result.IsOk() {
 		return Ok[Type](result.(ok[Type]).value)
 	}
+
 	return Err[Type](mapper(result.(err[Type]).value))
 }
 
@@ -124,6 +130,7 @@ func And[Type any, Out any](resultA Result[Type], resultB Result[Out]) Result[Ou
 	if resultA.IsOk() {
 		return resultB
 	}
+
 	return Err[Out](resultA.(err[Type]).value)
 }
 

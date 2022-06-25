@@ -13,13 +13,15 @@ func Chunk[Type any](collection []Type, chunkSize int) [][]Type {
 	numberOfChunks := (numberOfItems + chunkSize - 1) / chunkSize
 	chunks := make([][]Type, numberOfChunks)
 
-	for i := 0; i < numberOfChunks; i++ {
-		offset := i * chunkSize
+	for chunk := 0; chunk < numberOfChunks; chunk++ {
+		offset := chunk * chunkSize
 		end := offset + chunkSize
+
 		if end > numberOfItems {
 			end = numberOfItems
 		}
-		chunks[i] = collection[offset:end]
+
+		chunks[chunk] = collection[offset:end]
 	}
 
 	return chunks

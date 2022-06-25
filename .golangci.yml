@@ -1,0 +1,58 @@
+linters:
+  enable-all: true
+  disable:
+    - ireturn # Allow generic interfaces
+    - forcetypeassert # Need to force
+
+    # Archived/Deprecated/Abandoned --------------------------------------------
+    - golint           # Replaced by 'revive'.
+    - maligned         # Replaced by 'govet' and 'fieldalignment'.
+    - scopelint        # Replaced by 'exportloopref'.
+    - exhaustivestruct # Replaced by 'exhaustruct'.
+    - interfacer       # no replacement
+
+    # Disabled because of Generics ---------------------------------------------
+    # https://github.com/golangci/golangci-lint/issues/2859#issuecomment-1152998577
+    - staticcheck
+    - gosimple
+    - stylecheck
+    - unused
+
+    # Disabled because of go1.18. ----------------------------------------------
+    - bodyclose     # https://github.com/golangci/golangci-lint/issues/2649.
+    - contextcheck  # https://github.com/golangci/golangci-lint/issues/2649.
+    - nilerr        # https://github.com/golangci/golangci-lint/issues/2649.
+    - noctx         # https://github.com/golangci/golangci-lint/issues/2649.
+    - rowserrcheck  # https://github.com/golangci/golangci-lint/issues/2649.
+    - sqlclosecheck # https://github.com/golangci/golangci-lint/issues/2649.
+    - structcheck   # https://github.com/golangci/golangci-lint/issues/2649.
+    - tparallel     # https://github.com/golangci/golangci-lint/issues/2649.
+    - unparam       # https://github.com/golangci/golangci-lint/issues/2649.
+    - wastedassign  # https://github.com/golangci/golangci-lint/issues/2649.
+
+    # Temporary ----------------------------------------------------------------
+    - godox
+    - gosec
+
+issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0
+  fix: true
+
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - errcheck
+        - errorlint
+        - exhaustruct
+        - dupl
+        - forcetypeassert
+        - funlen
+        - goconst
+        - goerr113
+        - gosec
+        - lll
+        - maintidx
+        - paralleltest
+        - varnamelen
+        - wsl

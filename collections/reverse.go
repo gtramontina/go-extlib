@@ -6,5 +6,6 @@ func Reverse[Type any](collection []Type) []Type {
 	for i, v := range collection {
 		reversed[len(collection)-i-1] = v
 	}
+
 	return reversed
 }

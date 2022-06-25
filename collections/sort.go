@@ -1,10 +1,10 @@
 package collections
 
 import (
+	"sort"
+
 	"github.com/gtramontina/go-extlib/collections/internal/sortable"
 	"golang.org/x/exp/constraints"
-
-	"sort"
 )
 
 // Sort sorts the given collection by the natural order of its elements in an

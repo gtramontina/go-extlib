@@ -10,6 +10,12 @@ import (
 )
 
 func TestMaybe(t *testing.T) {
+	mustParseInt := func(in string) int {
+		out, _ := strconv.ParseInt(in, 10, 0)
+
+		return int(out)
+	}
+
 	type sample struct{ value int }
 
 	t.Run("when type checking", func(t *testing.T) {
@@ -122,7 +128,7 @@ func TestMaybe(t *testing.T) {
 			assert.Equals(t, maybe.Map(maybe.Some(1), func(it int) int { return it * 2 }), maybe.Some(2))
 			assert.Equals(t, maybe.Map(maybe.Some(1), func(it int) string { return fmt.Sprintf("value: %d", it) }), maybe.Some("value: 1"))
 			assert.Equals(t, maybe.Map(maybe.Some(1), func(it int) sample { return sample{it} }), maybe.Some(sample{1}))
-			assert.Equals(t, maybe.Map(maybe.Some("1"), func(it string) int { out, _ := strconv.ParseInt(it, 10, 0); return int(out) }), maybe.Some(1))
+			assert.Equals(t, maybe.Map(maybe.Some("1"), func(it string) int { return mustParseInt(it) }), maybe.Some(1))
 			assert.Equals(t, maybe.Map(maybe.Some(1), func(it int) maybe.Maybe[int] { return maybe.Some(it * 2) }), maybe.Some(maybe.Some(2)))
 		})
 
@@ -143,7 +149,7 @@ func TestMaybe(t *testing.T) {
 				assert.Equals(t, maybe.FlatMap[int, int](maybe.Some(1), func(it int) any { return it * 2 }), maybe.Some(2))
 				assert.Equals(t, maybe.FlatMap[int, string](maybe.Some(1), func(it int) any { return fmt.Sprintf("value: %d", it) }), maybe.Some("value: 1"))
 				assert.Equals(t, maybe.FlatMap[int, sample](maybe.Some(1), func(it int) any { return sample{it} }), maybe.Some(sample{1}))
-				assert.Equals(t, maybe.FlatMap[string, int](maybe.Some("1"), func(it string) any { out, _ := strconv.ParseInt(it, 10, 0); return int(out) }), maybe.Some(1))
+				assert.Equals(t, maybe.FlatMap[string, int](maybe.Some("1"), func(it string) any { return mustParseInt(it) }), maybe.Some(1))
 			})
 
 			t.Run("Some becomes None of the mapped type if the result is null", func(t *testing.T) {
@@ -161,7 +167,7 @@ func TestMaybe(t *testing.T) {
 				assert.Equals(t, maybe.FlatMap[int, int](maybe.Some(1), func(it int) any { return maybe.Some(it * 2) }), maybe.Some(2))
 				assert.Equals(t, maybe.FlatMap[int, string](maybe.Some(1), func(it int) any { return maybe.Some(fmt.Sprintf("value: %d", it)) }), maybe.Some("value: 1"))
 				assert.Equals(t, maybe.FlatMap[int, sample](maybe.Some(1), func(it int) any { return maybe.Some(sample{it}) }), maybe.Some(sample{1}))
-				assert.Equals(t, maybe.FlatMap[string, int](maybe.Some("1"), func(it string) any { out, _ := strconv.ParseInt(it, 10, 0); return maybe.Some(int(out)) }), maybe.Some(1))
+				assert.Equals(t, maybe.FlatMap[string, int](maybe.Some("1"), func(it string) any { return maybe.Some(mustParseInt(it)) }), maybe.Some(1))
 			})
 
 			t.Run("Some becomes None of the mapped type if the result is null", func(t *testing.T) {

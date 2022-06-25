@@ -9,14 +9,14 @@ package collections
 //
 //   subtract := func (a, b int) int { return a - b }
 //   _ = ReduceLeft[int]([]int{1, 2, 3, 4}, subtract) == (((1 - 2) - 3) - 4)
-func ReduceLeft[Type any](collection []Type, f func(Type, Type) Type) Type {
+func ReduceLeft[Type any](collection []Type, reducer func(Type, Type) Type) Type {
 	if len(collection) == 0 {
 		panic("cannot ReduceLeft an empty slice")
 	}
 
 	result := collection[0]
 	for _, item := range collection[1:] {
-		result = f(result, item)
+		result = reducer(result, item)
 	}
 
 	return result
@@ -31,14 +31,14 @@ func ReduceLeft[Type any](collection []Type, f func(Type, Type) Type) Type {
 //
 //   subtract := func (a, b int) int { return a - b }
 //   _ = ReduceRight[int]([]int{1, 2, 3, 4}, subtract) == (1 - (2 - (3 - 4)))
-func ReduceRight[Type any](collection []Type, f func(Type, Type) Type) Type {
+func ReduceRight[Type any](collection []Type, reducer func(Type, Type) Type) Type {
 	if len(collection) == 0 {
 		panic("cannot ReduceRight an empty slice")
 	}
 
 	result := collection[len(collection)-1]
-	for i := len(collection) - 2; i >= 0; i-- {
-		result = f(collection[i], result)
+	for i := len(collection) - 2; i >= 0; i-- { //nolint:gomnd // 2 -> first-to-last position
+		result = reducer(collection[i], result)
 	}
 
 	return result

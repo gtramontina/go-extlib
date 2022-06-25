@@ -17,5 +17,6 @@ func RandShuffle[Type any](r *rand.Rand, input []Type) []Type {
 	output := make([]Type, len(input))
 	copy(output, input)
 	r.Shuffle(len(input), func(i, j int) { output[i], output[j] = output[j], output[i] })
+
 	return output
 }

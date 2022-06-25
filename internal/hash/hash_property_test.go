@@ -21,6 +21,7 @@ func maxCountScale() float64 {
 		if err != nil {
 			panic(err)
 		}
+
 		return maxCountScale
 	}
 

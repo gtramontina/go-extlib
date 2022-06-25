@@ -19,6 +19,7 @@ func (i leftopenrightclosed[Real]) List(step Real) []Real {
 	for n := i.start + step; n <= i.end; n += step {
 		list = append(list, n)
 	}
+
 	return list
 }
 
@@ -28,5 +29,6 @@ func (i leftopenrightclosed[Real]) Contains(n Real) bool {
 
 func (i leftopenrightclosed[Real]) String() string {
 	notationStart, notationEnd := i.seal()
+
 	return fmt.Sprintf("Interval%s%v,%v%s", notationStart, i.start, i.end, notationEnd)
 }

@@ -9,9 +9,9 @@ import (
 )
 
 func TestMin(t *testing.T) {
-	var Inf = m.Inf
-	var NaN = m.NaN
-	var IsNaN = m.IsNaN
+	Inf := m.Inf
+	NaN := m.NaN
+	IsNaN := m.IsNaN
 
 	assert.Eq(t, math.Min[int](0, 0), 0)
 	assert.Eq(t, math.Min[int](0, 1), 0)
