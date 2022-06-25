@@ -64,10 +64,10 @@ func TestHashMap(t *testing.T) {
 	})
 
 	t.Run("can retrieve Maybe values based on keys", func(t *testing.T) {
-		assert.Eq(t, hashmap.New[string, int](hashmap.Pair("key1", 1), hashmap.Pair("key2", 2)).MaybeGet("key1"), maybe.Some(1))
-		assert.Eq(t, hashmap.New[string, int](hashmap.Pair("key1", 1), hashmap.Pair("key2", 2)).MaybeGet("key2"), maybe.Some(2))
-		assert.Eq(t, hashmap.New[string, int](hashmap.Pair("key0", 0), hashmap.Pair("key3", 3)).MaybeGet("key3"), maybe.Some(3))
-		assert.Eq(t, hashmap.New[string, int]().MaybeGet("unknown"), maybe.None[int]())
+		assert.DeepEqual(t, hashmap.New[string, int](hashmap.Pair("key1", 1), hashmap.Pair("key2", 2)).MaybeGet("key1"), maybe.Some(1))
+		assert.DeepEqual(t, hashmap.New[string, int](hashmap.Pair("key1", 1), hashmap.Pair("key2", 2)).MaybeGet("key2"), maybe.Some(2))
+		assert.DeepEqual(t, hashmap.New[string, int](hashmap.Pair("key0", 0), hashmap.Pair("key3", 3)).MaybeGet("key3"), maybe.Some(3))
+		assert.DeepEqual(t, hashmap.New[string, int]().MaybeGet("unknown"), maybe.None[int]())
 	})
 
 	t.Run("allows accessing all keys", func(t *testing.T) {

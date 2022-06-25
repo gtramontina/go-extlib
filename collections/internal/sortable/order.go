@@ -1,8 +1,9 @@
 package sortable
 
 import (
-	"constraints"
 	"math"
+
+	"golang.org/x/exp/constraints"
 )
 
 func OrderAscending[Type constraints.Ordered](i Type, j Type) bool {
