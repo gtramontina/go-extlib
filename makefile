@@ -32,6 +32,10 @@ test: | $(pre-reqs)
 	@gotestsum -- -race -cover -test.shuffle=on ./...
 .PHONY: test
 
+test.cached: | $(pre-reqs)
+	@gotestsum -- -cover ./...
+.PHONY: test.cached
+
 test.watch: | $(pre-reqs)
 	@gotestsum --format dots --watch -- -cover ./...
 .PHONY: test.watch
@@ -41,18 +45,16 @@ bench: | $(pre-reqs)
 .PHONY: bench
 
 lint: | $(pre-reqs)
-	@gofmt -w $$({ git ls-files -- '*.go'; git ls-files --others --exclude-standard -- '*.go'; })
-	@goimports -w $$({ git ls-files -- '*.go'; git ls-files --others --exclude-standard -- '*.go'; })
-	@docker run --rm -v $(PWD):/app -w /app golangci/golangci-lint:v1.46.2 golangci-lint run
+	@docker run --rm -v $(PWD):/app -v $(PWD)/.cache:/root/.cache -w /app golangci/golangci-lint:v1.46.2 golangci-lint run
 .PHONY: lint
 
 clobber:
-	@rm -rf .tools *.log
+	@rm -rf .tools .cache *.log
 .PHONY: clobber
 
 pre-commit: | $(pre-reqs)
+	@MAKEFLAGS= $(MAKE) test.cached
 	@MAKEFLAGS= $(MAKE) lint
-	@gotestsum -- -cover ./...
 .PHONY: pre-commit
 
 tag-release:

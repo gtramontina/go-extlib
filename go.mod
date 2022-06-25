@@ -5,7 +5,6 @@ go 1.18
 require (
 	github.com/smlx/ccv v0.3.2
 	golang.org/x/exp v0.0.0-20220613132600-b0d781184e0d
-	golang.org/x/tools v0.1.11
 	gotest.tools/gotestsum v1.8.1
 )
 
@@ -39,6 +38,7 @@ require (
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
 	golang.org/x/sys v0.0.0-20220422013727-9388b58f7150 // indirect
 	golang.org/x/term v0.0.0-20210927222741-03fcf44c2211 // indirect
+	golang.org/x/tools v0.1.11 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
