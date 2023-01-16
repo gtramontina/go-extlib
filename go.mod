@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/smlx/ccv v0.3.2
 	golang.org/x/exp v0.0.0-20220613132600-b0d781184e0d
-	gotest.tools/gotestsum v1.8.2
+	gotest.tools/gotestsum v1.9.0
 )
 
 require (
