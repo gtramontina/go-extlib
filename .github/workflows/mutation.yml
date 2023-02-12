@@ -1,0 +1,24 @@
+name: '🧬 Mutation Tests'
+on:
+  workflow_run:
+    workflows: ["🤖 Pipeline"]
+    branches: [main]
+    types:
+      - completed
+
+jobs:
+
+  Mutation:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Go 1.19
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.19
+          cache: true
+
+      - name: '🧬 Mutation Tests'
+        run: make test.mutation
