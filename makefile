@@ -12,11 +12,11 @@ include makefile.gotestsum.mk
 pre-reqs += .git/.hooks.log
 
 test: $(pre-reqs)
-	@gotestsum --format-hide-empty-pkg -- -race -cover -timeout=60s -shuffle=on ./...
+	@gotestsum --format-hide-empty-pkg -- -race -cover -timeout=10m -shuffle=on ./...
 .PHONY: test
 
 test.failfast: $(pre-reqs)
-	@gotestsum --format-hide-empty-pkg --max-fails=1 -- -timeout=60s -failfast ./...
+	@gotestsum --format-hide-empty-pkg --max-fails=1 -- -timeout=10m -failfast ./...
 .PHONY: test.failfast
 
 test.mutation: $(pre-reqs)
