@@ -33,6 +33,7 @@ linters:
     # Temporary ----------------------------------------------------------------
     - godox
     - gosec
+    - interfacebloat
 
 issues:
   max-issues-per-linter: 0

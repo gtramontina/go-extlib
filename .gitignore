@@ -1,4 +1,2 @@
-.tools/
-.cache/
+.bin/
 .idea/
-*.log
