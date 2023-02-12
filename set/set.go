@@ -54,7 +54,8 @@ func (s Set[Type]) Remove(existingMember Type) Set[Type] {
 }
 
 // Cardinality returns the number of members of this finite Set.
-//  |A| or #A
+//
+//	|A| or #A
 func (s Set[Type]) Cardinality() int {
 	return len(s.members)
 }
@@ -72,6 +73,7 @@ func (s Set[Type]) Equals(other Set[Type]) bool {
 }
 
 // Contains checks whether the given element is a member os this Set.
+//
 //	A┌─────────────┐
 //	 │             │
 //	 │         a   │  a ∈ A
@@ -96,6 +98,7 @@ func (s Set[Type]) SuperSetOf(other Set[Type]) bool {
 }
 
 // Union creates a Set of all values that are a member of A, or B, or both.
+//
 //	A┌─────────────┐
 //	 │#############│
 //	 │####┌────────┼────┐
@@ -118,6 +121,7 @@ func (s Set[Type]) Union(other Set[Type]) Set[Type] {
 }
 
 // Intersection creates a Set of all values that are members of both A and B.
+//
 //	A┌─────────────┐
 //	 │             │
 //	 │    ┌────────┼────┐
@@ -138,6 +142,7 @@ func (s Set[Type]) Intersection(other Set[Type]) Set[Type] {
 }
 
 // Difference creates a Set of all values of A that are not members of B.
+//
 //	A┌─────────────┐
 //	 │#############│
 //	 │####┌────────┼────┐
@@ -159,6 +164,7 @@ func (s Set[Type]) Difference(other Set[Type]) Set[Type] {
 
 // SymmetricDifference creates a Set of all values which are of one of the sets,
 // but not both.
+//
 //	A┌─────────────┐
 //	 │#############│
 //	 │####┌────────┼────┐

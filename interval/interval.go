@@ -8,6 +8,7 @@ import (
 
 // Interval is a set of real numbers that contains all real numbers lying
 // between any two numbers of the set.
+//
 //	Notation:
 //	• Open:                (𝑎,𝑏) = { 𝑥 ∈ ℝ | 𝑎 < 𝑥 < 𝑏 }
 //	• LeftClosedRightOpen: [𝑎,𝑏) = { 𝑥 ∈ ℝ | 𝑎 ≤ 𝑥 < 𝑏 }
@@ -34,8 +35,9 @@ type Interval[Real constraints.Real] interface {
 }
 
 // Open creates an open interval, where both start and end are excluded.
-//	• Graphical: 𝑎 ○————○ 𝑏
-//	• Notation:  (𝑎,𝑏) = { 𝑥 ∈ ℝ | 𝑎 < 𝑥 < 𝑏 }
+//   - Graphical: 𝑎 ○————○ 𝑏
+//   - Notation:  (𝑎,𝑏) = { 𝑥 ∈ ℝ | 𝑎 < 𝑥 < 𝑏 }
+//
 // See also: LeftClosedRightOpen, LeftOpenRightClosed, Closed.
 func Open[Real constraints.Real](start, end Real) Interval[Real] {
 	return open[Real]{start: start, end: end}
@@ -43,8 +45,9 @@ func Open[Real constraints.Real](start, end Real) Interval[Real] {
 
 // LeftClosedRightOpen creates a left-closed, right-open interval, where start
 // is included and end is excluded.
-//	• Graphical: 𝑎 ●————○ 𝑏
-//	• Notation:  [𝑎,𝑏) = { 𝑥 ∈ ℝ | 𝑎 ≤ 𝑥 < 𝑏 }
+//   - Graphical: 𝑎 ●————○ 𝑏
+//   - Notation:  [𝑎,𝑏) = { 𝑥 ∈ ℝ | 𝑎 ≤ 𝑥 < 𝑏 }
+//
 // See also: Open, LeftOpenRightClosed, Closed.
 func LeftClosedRightOpen[Real constraints.Real](start, end Real) Interval[Real] {
 	return leftclosedrightopen[Real]{start: start, end: end}
@@ -52,16 +55,18 @@ func LeftClosedRightOpen[Real constraints.Real](start, end Real) Interval[Real] 
 
 // LeftOpenRightClosed creates a left-open, right-closed interval, where start
 // is excluded and end is included.
-//	• Graphical: 𝑎 ○————● 𝑏
-//	• Notation:  (𝑎,𝑏] = { 𝑥 ∈ ℝ | 𝑎 < 𝑥 ≤ 𝑏 }
+//   - Graphical: 𝑎 ○————● 𝑏
+//   - Notation:  (𝑎,𝑏] = { 𝑥 ∈ ℝ | 𝑎 < 𝑥 ≤ 𝑏 }
+//
 // See also: Open, LeftClosedRightOpen, Closed.
 func LeftOpenRightClosed[Real constraints.Real](start, end Real) Interval[Real] {
 	return leftopenrightclosed[Real]{start: start, end: end}
 }
 
 // Closed creates a closed interval, where both start and end are included.
-//	• Graphical: 𝑎 ●————● 𝑏
-//	• Notation:  [𝑎,𝑏] = { 𝑥 ∈ ℝ | 𝑎 ≤ 𝑥 ≤ 𝑏 }
+//   - Graphical: 𝑎 ●————● 𝑏
+//   - Notation:  [𝑎,𝑏] = { 𝑥 ∈ ℝ | 𝑎 ≤ 𝑥 ≤ 𝑏 }
+//
 // See also: Open, LeftClosedRightOpen, LeftOpenRightClosed.
 func Closed[Real constraints.Real](start, end Real) Interval[Real] {
 	return closed[Real]{start: start, end: end}
