@@ -20,7 +20,7 @@ test.failfast: $(pre-reqs)
 .PHONY: test.failfast
 
 test.mutation: $(pre-reqs)
-	@go test -timeout=30m -count=1 -ooze.v -tags=mutation
+	@go test -timeout=30m -count=1 -ooze.v -tags=mutation -parallel=4
 .PHONY: test.mutation
 
 lint: $(pre-reqs)
