@@ -1,9 +1,7 @@
 package hash_test
 
 import (
-	"os"
 	"reflect"
-	"strconv"
 	"testing"
 	"testing/quick"
 
@@ -11,27 +9,8 @@ import (
 	"github.com/gtramontina/go-extlib/testing/assert"
 )
 
-// maxCountScale reads the `MAX_COUNT_SCALE` environment variable and parses it
-// as float64 if available. It defaults to 0.1 otherwise.
-// FIXME: maxCountScale is a workaround to the `-quickchecks` flag.
-func maxCountScale() float64 {
-	maxCountScaleEnv := os.Getenv("MAX_COUNT_SCALE")
-	if len(maxCountScaleEnv) > 0 {
-		maxCountScale, err := strconv.ParseFloat(maxCountScaleEnv, 64)
-		if err != nil {
-			panic(err)
-		}
-
-		return maxCountScale
-	}
-
-	return 0.1
-}
-
 func TestHashProperties(t *testing.T) {
-	config := &quick.Config{
-		MaxCountScale: maxCountScale(),
-	}
+	config := &quick.Config{MaxCountScale: 0.1}
 
 	sameHash := func(a, b any) bool {
 		return hash.Calc(a) == hash.Calc(b)

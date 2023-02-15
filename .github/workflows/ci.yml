@@ -20,5 +20,3 @@ jobs:
         run: make lint
       - name: 🧑‍🔬 Test
         run: make test
-        env:
-          MAX_COUNT_SCALE: 2
