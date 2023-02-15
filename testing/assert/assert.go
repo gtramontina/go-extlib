@@ -122,6 +122,13 @@ func PanicsWith[Type any](t *testing.T, fn func(), expectedPanic Type) {
 	fn()
 }
 
+// Panics checks whether the given function panics. It fails when it doesn't.
+func Panics(t *testing.T, fn func()) {
+	t.Helper()
+	defer assertPanics(t)
+	fn()
+}
+
 // ---
 
 func assert(t *testing.T, truth bool, lazyMessage func() string) {
@@ -156,6 +163,15 @@ func assertPanicsWith[Type any](t *testing.T, expectedPanic Type) {
 			bold(blue("Actual:")), fmt.Sprintf("[%s] %+v", reflect.TypeOf(actualPanic), actualPanic), "",
 			bold(blue("Expected:")), fmt.Sprintf("[%s] %+v", reflect.TypeOf(expectedPanic), expectedPanic), "",
 		}, "\n")
+	})
+}
+
+func assertPanics(t *testing.T) {
+	t.Helper()
+
+	actualPanic := recover()
+	assert(t, actualPanic != nil, func() string {
+		return red("Assertion failed: expected function to panic, but it didn't.")
 	})
 }
 
