@@ -103,6 +103,32 @@ func TestJSONUnmarshal(t *testing.T) {
 	})
 }
 
+func TestJSONTryUnmarshal(t *testing.T) {
+	{
+		_, err := json.TryUnmarshal[bool](``)
+		assert.Error(t, err)
+	}
+	{
+		_, err := json.TryUnmarshal[int](``)
+		assert.Error(t, err)
+	}
+	{
+		_, err := json.TryUnmarshal[string](``)
+		assert.Error(t, err)
+	}
+
+	{
+		out, err := json.TryUnmarshal[bool]("true")
+		assert.NoError(t, err)
+		assert.DeepEqual(t, out, true)
+	}
+	{
+		out, err := json.TryUnmarshal[[]string](`["hello", "world"]`)
+		assert.NoError(t, err)
+		assert.DeepEqual(t, out, []string{"hello", "world"})
+	}
+}
+
 type Person struct {
 	Name string
 	Age  int
