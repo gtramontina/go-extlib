@@ -115,6 +115,16 @@ func NoError(t *testing.T, err error) {
 	})
 }
 
+// Error checks whether err is not nil. It fails when it is nil.
+func Error(t *testing.T, err error) {
+	t.Helper()
+	refute(t, err == nil, func() string {
+		return strings.Join([]string{
+			red("Assertion failed: expected an error."), "",
+		}, "\n")
+	})
+}
+
 // PanicsWith checks whether the given function panics with the expected message.
 func PanicsWith[Type any](t *testing.T, fn func(), expectedPanic Type) {
 	t.Helper()
