@@ -19,10 +19,6 @@ test.failfast: $(pre-reqs)
 	@gotestsum --format-hide-empty-pkg --format=dots --max-fails=1 -- -timeout=10m -failfast ./...
 .PHONY: test.failfast
 
-test.failfast.mutation: $(pre-reqs)
-	@GOCACHE=$(PWD)/.gocache MAKEFLAGS= $(MAKE) test.failfast
-.PHONY: test.failfast.mutation
-
 test.mutation: $(pre-reqs)
 	@go test -timeout=2h -count=1 -ooze.v -tags=mutation
 .PHONY: test.mutation
