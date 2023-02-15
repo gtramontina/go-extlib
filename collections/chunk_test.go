@@ -9,8 +9,8 @@ import (
 
 func TestChunk(t *testing.T) {
 	t.Run("panics when the number of chunks given is less than 1", func(t *testing.T) {
-		assert.Panic(t, func() { collections.Chunk([]int{0}, -1) }, "chunk size must be greater than 1")
-		assert.Panic(t, func() { collections.Chunk([]int{0}, 0) }, "chunk size must be greater than 1")
+		assert.PanicsWith(t, func() { collections.Chunk([]int{0}, -1) }, "chunk size must be greater than 1")
+		assert.PanicsWith(t, func() { collections.Chunk([]int{0}, 0) }, "chunk size must be greater than 1")
 	})
 
 	t.Run("when empty collection, returns an empty collection of chunks", func(t *testing.T) {

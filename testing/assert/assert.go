@@ -115,10 +115,10 @@ func NoError(t *testing.T, err error) {
 	})
 }
 
-// Panic checks whether the given function panics with the expected message.
-func Panic[Type any](t *testing.T, fn func(), expectedPanic Type) {
+// PanicsWith checks whether the given function panics with the expected message.
+func PanicsWith[Type any](t *testing.T, fn func(), expectedPanic Type) {
 	t.Helper()
-	defer assertPanic[Type](t, expectedPanic)
+	defer assertPanicsWith[Type](t, expectedPanic)
 	fn()
 }
 
@@ -143,7 +143,7 @@ func refute(t *testing.T, truth bool, lazyMessage func() string) {
 	assert(t, !truth, lazyMessage)
 }
 
-func assertPanic[Type any](t *testing.T, expectedPanic Type) {
+func assertPanicsWith[Type any](t *testing.T, expectedPanic Type) {
 	t.Helper()
 
 	actualPanic := recover()

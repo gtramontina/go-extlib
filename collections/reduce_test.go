@@ -9,8 +9,8 @@ import (
 
 func TestReduceLeft(t *testing.T) {
 	t.Run("panics when the given collection is empty", func(t *testing.T) {
-		assert.Panic(t, func() { collections.ReduceLeft([]int{}, func(acc, val int) int { return acc + val }) }, "cannot ReduceLeft an empty slice")
-		assert.Panic(t, func() { collections.ReduceLeft([]string{}, func(acc, val string) string { return acc + val }) }, "cannot ReduceLeft an empty slice")
+		assert.PanicsWith(t, func() { collections.ReduceLeft([]int{}, func(acc, val int) int { return acc + val }) }, "cannot ReduceLeft an empty slice")
+		assert.PanicsWith(t, func() { collections.ReduceLeft([]string{}, func(acc, val string) string { return acc + val }) }, "cannot ReduceLeft an empty slice")
 	})
 
 	t.Run("is left associative", func(t *testing.T) {
@@ -25,8 +25,8 @@ func TestReduceLeft(t *testing.T) {
 
 func TestReduceRight(t *testing.T) {
 	t.Run("panics when the given collection is empty", func(t *testing.T) {
-		assert.Panic(t, func() { collections.ReduceRight([]int{}, func(acc, val int) int { return acc + val }) }, "cannot ReduceRight an empty slice")
-		assert.Panic(t, func() { collections.ReduceRight([]string{}, func(acc, val string) string { return acc + val }) }, "cannot ReduceRight an empty slice")
+		assert.PanicsWith(t, func() { collections.ReduceRight([]int{}, func(acc, val int) int { return acc + val }) }, "cannot ReduceRight an empty slice")
+		assert.PanicsWith(t, func() { collections.ReduceRight([]string{}, func(acc, val string) string { return acc + val }) }, "cannot ReduceRight an empty slice")
 	})
 
 	t.Run("is right associative", func(t *testing.T) {

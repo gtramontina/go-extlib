@@ -141,17 +141,17 @@ func TestResult(t *testing.T) {
 		})
 
 		t.Run("Err panics with the error", func(t *testing.T) {
-			assert.Panic(t, func() { result.Err[int](errors.New("error message int")).Unwrap() }, errors.New("error message int"))
-			assert.Panic(t, func() { result.Err[string](errors.New("error message string")).Unwrap() }, errors.New("error message string"))
-			assert.Panic(t, func() { result.Err[sample](errors.New("error message sample")).Unwrap() }, errors.New("error message sample"))
+			assert.PanicsWith(t, func() { result.Err[int](errors.New("error message int")).Unwrap() }, errors.New("error message int"))
+			assert.PanicsWith(t, func() { result.Err[string](errors.New("error message string")).Unwrap() }, errors.New("error message string"))
+			assert.PanicsWith(t, func() { result.Err[sample](errors.New("error message sample")).Unwrap() }, errors.New("error message sample"))
 		})
 	})
 
 	t.Run("when unwrapping err", func(t *testing.T) {
 		t.Run("Ok panics with the underlying value", func(t *testing.T) {
-			assert.Panic(t, func() { result.Ok[int](1).UnwrapErr() }, 1)
-			assert.Panic(t, func() { result.Ok[string]("value").UnwrapErr() }, "value")
-			assert.Panic(t, func() { result.Ok[sample](sample{1}).UnwrapErr() }, sample{1})
+			assert.PanicsWith(t, func() { result.Ok[int](1).UnwrapErr() }, 1)
+			assert.PanicsWith(t, func() { result.Ok[string]("value").UnwrapErr() }, "value")
+			assert.PanicsWith(t, func() { result.Ok[sample](sample{1}).UnwrapErr() }, sample{1})
 		})
 
 		t.Run("Err returns the underlying error", func(t *testing.T) {

@@ -59,7 +59,7 @@ func TestHashMap(t *testing.T) {
 		assert.Eq(t, hashmap.New[string, int](hashmap.Pair("key0", 0), hashmap.Pair("key3", 3)).MustGet("key3"), 3)
 
 		t.Run("panics when no value is associated with given key", func(t *testing.T) {
-			assert.Panic(t, func() { hashmap.New[string, int]().MustGet("unknown") }, "hashmap: key not found")
+			assert.PanicsWith(t, func() { hashmap.New[string, int]().MustGet("unknown") }, "hashmap: key not found")
 		})
 	})
 

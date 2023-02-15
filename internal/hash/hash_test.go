@@ -9,7 +9,7 @@ import (
 
 func TestHash(t *testing.T) {
 	t.Run("unknown type", func(t *testing.T) {
-		assert.Panic(t, func() { hash.Calc(uintptr(0)) }, `can't calculate hash for "uintptr": 0`)
+		assert.PanicsWith(t, func() { hash.Calc(uintptr(0)) }, `can't calculate hash for "uintptr": 0`)
 	})
 
 	t.Run("nil", func(t *testing.T) {

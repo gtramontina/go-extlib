@@ -189,9 +189,9 @@ func TestMaybe(t *testing.T) {
 		})
 
 		t.Run("None panics", func(t *testing.T) {
-			assert.Panic(t, func() { maybe.None[int]().Unwrap() }, "nothing to unwrap from None()")
-			assert.Panic(t, func() { maybe.None[string]().Unwrap() }, "nothing to unwrap from None()")
-			assert.Panic(t, func() { maybe.None[sample]().Unwrap() }, "nothing to unwrap from None()")
+			assert.PanicsWith(t, func() { maybe.None[int]().Unwrap() }, "nothing to unwrap from None()")
+			assert.PanicsWith(t, func() { maybe.None[string]().Unwrap() }, "nothing to unwrap from None()")
+			assert.PanicsWith(t, func() { maybe.None[sample]().Unwrap() }, "nothing to unwrap from None()")
 		})
 	})
 

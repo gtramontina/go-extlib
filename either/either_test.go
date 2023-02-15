@@ -194,17 +194,17 @@ func TestEither(t *testing.T) {
 		})
 
 		t.Run("Right panics", func(t *testing.T) {
-			assert.Panic(t, func() { either.Right[int, int](1).UnwrapLeft() }, "nothing to unwrap left from Right")
-			assert.Panic(t, func() { either.Right[string, string]("value").UnwrapLeft() }, "nothing to unwrap left from Right")
-			assert.Panic(t, func() { either.Right[sample, sample](sample{1}).UnwrapLeft() }, "nothing to unwrap left from Right")
+			assert.PanicsWith(t, func() { either.Right[int, int](1).UnwrapLeft() }, "nothing to unwrap left from Right")
+			assert.PanicsWith(t, func() { either.Right[string, string]("value").UnwrapLeft() }, "nothing to unwrap left from Right")
+			assert.PanicsWith(t, func() { either.Right[sample, sample](sample{1}).UnwrapLeft() }, "nothing to unwrap left from Right")
 		})
 	})
 
 	t.Run("when unwrapping right", func(t *testing.T) {
 		t.Run("Left panics", func(t *testing.T) {
-			assert.Panic(t, func() { either.Left[int, int](1).UnwrapRight() }, "nothing to unwrap right from Left")
-			assert.Panic(t, func() { either.Left[string, string]("value").UnwrapRight() }, "nothing to unwrap right from Left")
-			assert.Panic(t, func() { either.Left[sample, sample](sample{1}).UnwrapRight() }, "nothing to unwrap right from Left")
+			assert.PanicsWith(t, func() { either.Left[int, int](1).UnwrapRight() }, "nothing to unwrap right from Left")
+			assert.PanicsWith(t, func() { either.Left[string, string]("value").UnwrapRight() }, "nothing to unwrap right from Left")
+			assert.PanicsWith(t, func() { either.Left[sample, sample](sample{1}).UnwrapRight() }, "nothing to unwrap right from Left")
 		})
 
 		t.Run("Right returns the underlying value", func(t *testing.T) {
