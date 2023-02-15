@@ -12,7 +12,7 @@ func TestMutation(t *testing.T) {
 	ooze.Release(
 		t,
 		ooze.ForceColors(),
-		ooze.WithTestCommand("make test.failfast MAKEFLAGS="),
+		ooze.WithTestCommand("make test.failfast.mutation"),
 		ooze.WithMinimumThreshold(0.5),
 	)
 }
