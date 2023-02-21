@@ -13,4 +13,7 @@ type Iterator[T any] interface {
 	// Next returns the next element in the iteration. If there are no more
 	// elements, it panics with ErrIteratorEmpty.
 	Next() T
+
+	// Collect returns a slice containing all the remaining elements in the
+	Collect() []T
 }

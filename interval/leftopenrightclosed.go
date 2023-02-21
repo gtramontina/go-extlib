@@ -3,6 +3,8 @@ package interval
 import (
 	"fmt"
 
+	"github.com/gtramontina/go-extlib/interval/internal"
+	"github.com/gtramontina/go-extlib/iterator"
 	"github.com/gtramontina/go-extlib/math/constraints"
 )
 
@@ -31,4 +33,8 @@ func (i leftopenrightclosed[Real]) String() string {
 	notationStart, notationEnd := i.seal()
 
 	return fmt.Sprintf("Interval%s%v,%v%s", notationStart, i.start, i.end, notationEnd)
+}
+
+func (i leftopenrightclosed[Real]) Iterator(step Real) iterator.Iterator[Real] {
+	return internal.NewIterator[Real](i, step, i.start)
 }

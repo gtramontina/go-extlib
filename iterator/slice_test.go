@@ -42,4 +42,9 @@ func TestSliceIterator(t *testing.T) {
 		iter.Next()
 		assert.PanicsWith(t, func() { iter.Next() }, iterator.ErrIteratorEmpty)
 	})
+
+	t.Run("allows collecting all elements", func(t *testing.T) {
+		iter := iterator.FromSlice([]string{"first", "second", "third"})
+		assert.DeepEqual(t, iter.Collect(), []string{"first", "second", "third"})
+	})
 }

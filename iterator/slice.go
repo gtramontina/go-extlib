@@ -27,3 +27,7 @@ func (i *slice[T]) Next() T {
 
 	return value
 }
+
+func (i *slice[T]) Collect() []T {
+	return i.source[i.index:]
+}

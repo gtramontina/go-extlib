@@ -3,6 +3,7 @@ package interval
 import (
 	"fmt"
 
+	"github.com/gtramontina/go-extlib/iterator"
 	"github.com/gtramontina/go-extlib/math/constraints"
 )
 
@@ -32,6 +33,10 @@ type Interval[Real constraints.Real] interface {
 
 	// Contains checks if this interval contains the given number.
 	Contains(Real) bool
+
+	// Iterator returns an iterator that can be used to iterate over all numbers
+	// in this interval.
+	Iterator(Real) iterator.Iterator[Real]
 }
 
 // Open creates an open interval, where both start and end are excluded.

@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/gtramontina/go-extlib/interval"
+	"github.com/gtramontina/go-extlib/iterator"
 	"github.com/gtramontina/go-extlib/testing/assert"
 )
 
@@ -58,6 +59,47 @@ func TestInterval(t *testing.T) {
 			assert.False(t, interval.Open[float32](0, 3).Contains(3.00001))
 			assert.False(t, interval.Open[float32](0, 3).Contains(4))
 		})
+
+		t.Run("creates an iterator", func(t *testing.T) {
+			{
+				iter := interval.Open(1, 1).Iterator(1)
+				assert.False(t, iter.HasNext())
+				assert.PanicsWith(t, func() { iter.Next() }, iterator.ErrIteratorEmpty)
+			}
+			{
+				iter := interval.Open(1, 3).Iterator(1)
+				assert.True(t, iter.HasNext())
+				assert.Eq(t, iter.Next(), 2)
+				assert.False(t, iter.HasNext())
+				assert.PanicsWith(t, func() { iter.Next() }, iterator.ErrIteratorEmpty)
+			}
+			{
+				iter := interval.Open(1, 7).Iterator(2)
+				assert.True(t, iter.HasNext())
+				assert.Eq(t, iter.Next(), 3)
+				assert.True(t, iter.HasNext())
+				assert.Eq(t, iter.Next(), 5)
+				assert.False(t, iter.HasNext())
+				assert.PanicsWith(t, func() { iter.Next() }, iterator.ErrIteratorEmpty)
+			}
+			{
+				iter := interval.Open(1.0, 7.0).Iterator(1.5)
+				assert.True(t, iter.HasNext())
+				assert.Eq(t, iter.Next(), 2.5)
+				assert.True(t, iter.HasNext())
+				assert.Eq(t, iter.Next(), 4.0)
+				assert.True(t, iter.HasNext())
+				assert.Eq(t, iter.Next(), 5.5)
+				assert.False(t, iter.HasNext())
+				assert.PanicsWith(t, func() { iter.Next() }, iterator.ErrIteratorEmpty)
+			}
+			{
+				assert.DeepEqual(t, interval.Open(1, 1).Iterator(1).Collect(), []int{})
+				assert.DeepEqual(t, interval.Open(1, 3).Iterator(1).Collect(), []int{2})
+				assert.DeepEqual(t, interval.Open(1, 7).Iterator(2).Collect(), []int{3, 5})
+				assert.DeepEqual(t, interval.Open(1.0, 7.0).Iterator(1.5).Collect(), []float64{2.5, 4.0, 5.5})
+			}
+		})
 	})
 
 	t.Run("left closed right open", func(t *testing.T) {
@@ -109,6 +151,47 @@ func TestInterval(t *testing.T) {
 			assert.False(t, interval.LeftClosedRightOpen[float32](0, 3).Contains(3.00001))
 			assert.False(t, interval.LeftClosedRightOpen[float32](0, 3).Contains(4))
 		})
+
+		t.Run("creates an iterator", func(t *testing.T) {
+			{
+				iter := interval.LeftClosedRightOpen(1, 1).Iterator(1)
+				assert.False(t, iter.HasNext())
+				assert.PanicsWith(t, func() { iter.Next() }, iterator.ErrIteratorEmpty)
+			}
+			{
+				iter := interval.LeftClosedRightOpen(1, 2).Iterator(1)
+				assert.True(t, iter.HasNext())
+				assert.Eq(t, iter.Next(), 1)
+				assert.False(t, iter.HasNext())
+				assert.PanicsWith(t, func() { iter.Next() }, iterator.ErrIteratorEmpty)
+			}
+			{
+				iter := interval.LeftClosedRightOpen(1, 5).Iterator(2)
+				assert.True(t, iter.HasNext())
+				assert.Eq(t, iter.Next(), 1)
+				assert.True(t, iter.HasNext())
+				assert.Eq(t, iter.Next(), 3)
+				assert.False(t, iter.HasNext())
+				assert.PanicsWith(t, func() { iter.Next() }, iterator.ErrIteratorEmpty)
+			}
+			{
+				iter := interval.LeftClosedRightOpen(1.0, 5.0).Iterator(1.5)
+				assert.True(t, iter.HasNext())
+				assert.Eq(t, iter.Next(), 1.0)
+				assert.True(t, iter.HasNext())
+				assert.Eq(t, iter.Next(), 2.5)
+				assert.True(t, iter.HasNext())
+				assert.Eq(t, iter.Next(), 4.0)
+				assert.False(t, iter.HasNext())
+				assert.PanicsWith(t, func() { iter.Next() }, iterator.ErrIteratorEmpty)
+			}
+			{
+				assert.DeepEqual(t, interval.LeftClosedRightOpen(1, 1).Iterator(1).Collect(), []int{})
+				assert.DeepEqual(t, interval.LeftClosedRightOpen(1, 2).Iterator(1).Collect(), []int{1})
+				assert.DeepEqual(t, interval.LeftClosedRightOpen(1, 5).Iterator(2).Collect(), []int{1, 3})
+				assert.DeepEqual(t, interval.LeftClosedRightOpen(1.0, 5.0).Iterator(1.5).Collect(), []float64{1.0, 2.5, 4.0})
+			}
+		})
 	})
 
 	t.Run("left open right closed", func(t *testing.T) {
@@ -159,6 +242,47 @@ func TestInterval(t *testing.T) {
 			assert.True(t, interval.LeftOpenRightClosed[float32](0, 3).Contains(3))
 			assert.False(t, interval.LeftOpenRightClosed[float32](0, 3).Contains(3.00001))
 			assert.False(t, interval.LeftOpenRightClosed[float32](0, 3).Contains(4))
+		})
+
+		t.Run("creates an iterator", func(t *testing.T) {
+			{
+				iter := interval.LeftOpenRightClosed(1, 1).Iterator(1)
+				assert.False(t, iter.HasNext())
+				assert.PanicsWith(t, func() { iter.Next() }, iterator.ErrIteratorEmpty)
+			}
+			{
+				iter := interval.LeftOpenRightClosed(1, 2).Iterator(1)
+				assert.True(t, iter.HasNext())
+				assert.Eq(t, iter.Next(), 2)
+				assert.False(t, iter.HasNext())
+				assert.PanicsWith(t, func() { iter.Next() }, iterator.ErrIteratorEmpty)
+			}
+			{
+				iter := interval.LeftOpenRightClosed(1, 5).Iterator(2)
+				assert.True(t, iter.HasNext())
+				assert.Eq(t, iter.Next(), 3)
+				assert.True(t, iter.HasNext())
+				assert.Eq(t, iter.Next(), 5)
+				assert.False(t, iter.HasNext())
+				assert.PanicsWith(t, func() { iter.Next() }, iterator.ErrIteratorEmpty)
+			}
+			{
+				iter := interval.LeftOpenRightClosed(1.0, 5.5).Iterator(1.5)
+				assert.True(t, iter.HasNext())
+				assert.Eq(t, iter.Next(), 2.5)
+				assert.True(t, iter.HasNext())
+				assert.Eq(t, iter.Next(), 4.0)
+				assert.True(t, iter.HasNext())
+				assert.Eq(t, iter.Next(), 5.5)
+				assert.False(t, iter.HasNext())
+				assert.PanicsWith(t, func() { iter.Next() }, iterator.ErrIteratorEmpty)
+			}
+			{
+				assert.DeepEqual(t, interval.LeftOpenRightClosed(1, 1).Iterator(1).Collect(), []int{})
+				assert.DeepEqual(t, interval.LeftOpenRightClosed(1, 2).Iterator(1).Collect(), []int{2})
+				assert.DeepEqual(t, interval.LeftOpenRightClosed(1, 5).Iterator(2).Collect(), []int{3, 5})
+				assert.DeepEqual(t, interval.LeftOpenRightClosed(1.0, 5.5).Iterator(1.5).Collect(), []float64{2.5, 4.0, 5.5})
+			}
 		})
 	})
 
@@ -216,6 +340,59 @@ func TestInterval(t *testing.T) {
 			assert.True(t, interval.Closed[float32](0, 3).Contains(3))
 			assert.False(t, interval.Closed[float32](0, 3).Contains(3.00001))
 			assert.False(t, interval.Closed[float32](0, 3).Contains(4))
+		})
+
+		t.Run("creates an iterator", func(t *testing.T) {
+			{
+				iter := interval.Closed(1, 1).Iterator(1)
+				assert.True(t, iter.HasNext())
+				assert.Eq(t, iter.Next(), 1)
+				assert.False(t, iter.HasNext())
+				assert.PanicsWith(t, func() { iter.Next() }, iterator.ErrIteratorEmpty)
+			}
+			{
+				iter := interval.Closed(1, 2).Iterator(1)
+				assert.True(t, iter.HasNext())
+				assert.Eq(t, iter.Next(), 1)
+				assert.True(t, iter.HasNext())
+				assert.Eq(t, iter.Next(), 2)
+				assert.False(t, iter.HasNext())
+				assert.PanicsWith(t, func() { iter.Next() }, iterator.ErrIteratorEmpty)
+			}
+			{
+				iter := interval.Closed(1, 7).Iterator(2)
+				assert.True(t, iter.HasNext())
+				assert.Eq(t, iter.Next(), 1)
+				assert.True(t, iter.HasNext())
+				assert.Eq(t, iter.Next(), 3)
+				assert.True(t, iter.HasNext())
+				assert.Eq(t, iter.Next(), 5)
+				assert.True(t, iter.HasNext())
+				assert.Eq(t, iter.Next(), 7)
+				assert.False(t, iter.HasNext())
+				assert.PanicsWith(t, func() { iter.Next() }, iterator.ErrIteratorEmpty)
+			}
+			{
+				iter := interval.Closed(1.0, 7.0).Iterator(1.5)
+				assert.True(t, iter.HasNext())
+				assert.Eq(t, iter.Next(), 1.0)
+				assert.True(t, iter.HasNext())
+				assert.Eq(t, iter.Next(), 2.5)
+				assert.True(t, iter.HasNext())
+				assert.Eq(t, iter.Next(), 4.0)
+				assert.True(t, iter.HasNext())
+				assert.Eq(t, iter.Next(), 5.5)
+				assert.True(t, iter.HasNext())
+				assert.Eq(t, iter.Next(), 7.0)
+				assert.False(t, iter.HasNext())
+				assert.PanicsWith(t, func() { iter.Next() }, iterator.ErrIteratorEmpty)
+			}
+			{
+				assert.DeepEqual(t, interval.Closed(1, 1).Iterator(1).Collect(), []int{1})
+				assert.DeepEqual(t, interval.Closed(1, 2).Iterator(1).Collect(), []int{1, 2})
+				assert.DeepEqual(t, interval.Closed(1, 7).Iterator(2).Collect(), []int{1, 3, 5, 7})
+				assert.DeepEqual(t, interval.Closed(1.0, 7.0).Iterator(1.5).Collect(), []float64{1.0, 2.5, 4.0, 5.5, 7.0})
+			}
 		})
 	})
 }
