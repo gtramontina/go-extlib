@@ -57,3 +57,7 @@ issues:
         - paralleltest
         - varnamelen
         - wsl
+
+linters-settings:
+    dupl:
+        threshold: 200
