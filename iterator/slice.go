@@ -13,6 +13,11 @@ func FromSlice[T any](source []T) Iterator[T] {
 	}
 }
 
+// From returns an iterator over the given arguments.
+func From[T any](source ...T) Iterator[T] {
+	return FromSlice(source)
+}
+
 func (i *slice[T]) HasNext() bool {
 	return i.index < len(i.source)
 }
