@@ -16,16 +16,37 @@ func Empty[T any]() iterator.Iterator[T] {
 func TestMap(t *testing.T) {
 	t.Run("empty collection yields empty collection", func(t *testing.T) {
 		dummy := func(it int) int { return it }
-		assert.DeepEqual(t, iterator.Map(Empty[int](), dummy).Collect(), []int{})
+		assert.False(t, iterator.Map(Empty[int](), dummy).HasNext())
 	})
 
 	t.Run("maps all items", func(t *testing.T) {
-		identity := func(it int) int { return it }
-		assert.DeepEqual(t, iterator.Map(iterator.FromSlice([]int{1}), identity).Collect(), []int{1})
-		assert.DeepEqual(t, iterator.Map(iterator.FromSlice([]int{1, 2}), identity).Collect(), []int{1, 2})
+		{
+			identity := func(it int) int { return it }
+			iter := iterator.Map(iterator.FromSlice([]int{1}), identity)
+			assert.True(t, iter.HasNext())
+			assert.DeepEqual(t, iter.Next(), 1)
+			assert.False(t, iter.HasNext())
+		}
 
-		add1 := func(it int) int { return it + 1 }
-		assert.DeepEqual(t, iterator.Map(iterator.FromSlice([]int{1, 2}), add1).Collect(), []int{2, 3})
+		{
+			identity := func(it int) int { return it }
+			iter := iterator.Map(iterator.FromSlice([]int{1, 2}), identity)
+			assert.True(t, iter.HasNext())
+			assert.DeepEqual(t, iter.Next(), 1)
+			assert.True(t, iter.HasNext())
+			assert.DeepEqual(t, iter.Next(), 2)
+			assert.False(t, iter.HasNext())
+		}
+
+		{
+			add1 := func(it int) int { return it + 1 }
+			iter := iterator.Map(iterator.FromSlice([]int{1, 2}), add1)
+			assert.True(t, iter.HasNext())
+			assert.DeepEqual(t, iter.Next(), 2)
+			assert.True(t, iter.HasNext())
+			assert.DeepEqual(t, iter.Next(), 3)
+			assert.False(t, iter.HasNext())
+		}
 	})
 
 	t.Run("maps to different types", func(t *testing.T) {
